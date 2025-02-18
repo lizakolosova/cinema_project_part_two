@@ -1,4 +1,4 @@
-package be.kdg.cinemaproject.domain.exception;
+package be.kdg.cinemaproject.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
@@ -18,7 +18,7 @@ public class GlobalExceptionHandler {
         model.addAttribute("status", 500);
         model.addAttribute("message", ex.getMessage());
         model.addAttribute("timestamp", LocalDateTime.now());
-        return "database-error";
+        return "error/database-error";
     }
 
     @ExceptionHandler(Exception.class)
@@ -27,6 +27,6 @@ public class GlobalExceptionHandler {
         model.addAttribute("message", ex.getMessage());
         model.addAttribute("condition", "Application error");
         model.addAttribute("time",  LocalDateTime.now());
-        return "other-error";
+        return "error/other-error";
     }
 }

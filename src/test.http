@@ -1,0 +1,15 @@
+GET http://localhost:8080/api/movies?title=Toy Story
+Accept: application/json
+
+###
+
+GET http://localhost:8080/api/movies?title=fckdfsnf
+Accept: application/json
+
+###
+
+DELETE http://localhost:8080/api/movies/2
+
+###
+
+DELETE http://localhost:8080/api/movies/9

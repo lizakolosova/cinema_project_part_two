@@ -24,4 +24,3 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 """)
     Cinema findByIdWithScreens(@Param("id") Long id);
 }
-

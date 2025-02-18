@@ -14,7 +14,7 @@ import java.util.Optional;
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    Optional<Movie> findByTitle(String title);
+    List<Movie> findByTitle(String title);
 
     List<Movie> findByReleaseDateAfter(LocalDate releaseDate);
 
@@ -28,4 +28,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
 
     @Query("SELECT m FROM Movie m WHERE (:genre IS NULL OR m.genre = :genre) AND (:rating IS NULL OR m.rating >= :rating)")
     List<Movie> findMoviesByGenreAndRating(Genre genre, Double rating);
+    List<Movie> findByTitleContainingIgnoreCase(String title);
 }

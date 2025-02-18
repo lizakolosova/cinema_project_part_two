@@ -82,13 +82,12 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public Movie findByTitle(String title) {
-        return movieRepository.findByTitle(title)
-                .orElse(null);
+    public List<Movie> findByTitle(String title) {
+        return movieRepository.findByTitleContainingIgnoreCase(title);
     }
 
     @Override
-    public List<Movie> findByReleaseDateAfter(LocalDate releaseDate){
-        return movieRepository.findByReleaseDateAfter(releaseDate);
+    public Movie existsById(Long id) {
+        return movieRepository.findById(id).orElse(null);
     }
 }

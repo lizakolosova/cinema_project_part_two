@@ -18,6 +18,6 @@ public interface MovieService {
     List<Movie> getFilteredMovies(String genreInput, Double rating);
     Movie findByIdWithCinemas(Long id);
     void  deleteById(Long id);
-    Movie findByTitle(String title);
-    List<Movie> findByReleaseDateAfter(LocalDate releaseDate);
+    List<Movie> findByTitle(String title);
+    Movie existsById(Long id);
 }

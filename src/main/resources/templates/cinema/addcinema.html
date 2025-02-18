@@ -15,7 +15,7 @@
 
     <div id="errorMessage" class="alert alert-danger" style="display: none;" role="alert"></div>
 
-    <form id="addCinemaForm" th:action="@{/addcinema}" method="post" th:object="${cinemaViewModel}" enctype="multipart/form-data" class="pd-5">
+    <form id="addCinemaForm" th:action="@{/cinemas/addcinema}" method="post" th:object="${cinemaViewModel}" enctype="multipart/form-data" class="pd-5">
         <div class="mb-3">
             <label for="name" class="form-label" th:text="#{cinema.name}">Cinema Name:</label>
             <input type="text" id="name" class="form-control" th:field="*{name}"/>

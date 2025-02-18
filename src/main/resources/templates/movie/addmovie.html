@@ -15,7 +15,7 @@
 
     <div id="errorMessage" class="alert alert-danger" style="display: none;" role="alert"></div>
 
-    <form id="addMovieForm" th:action="@{/addmovie}" th:object="${movieViewModel}" method="post" class="mt-3">
+    <form id="addMovieForm" th:action="@{/movies/addmovie}" th:object="${movieViewModel}" method="post" class="mt-3">
         <div class="mb-3">
             <label for="title" class="form-label" th:text="#{movie.title}">Movie Title:</label>
             <input type="text" id="title" class="form-control" th:field="*{title}" />
