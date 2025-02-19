@@ -72,4 +72,31 @@ Date: Tue, 18 Feb 2025 16:28:53 GMT
 
 Response code: 404; Time: 25ms (25 ms); Content length: 0 bytes (0 B)
 ```
+## Deleting one cinema - No content
+
+```http
+DELETE http://localhost:8080/api/cinemas/1
+
+HTTP/1.1 204
+Date: Wed, 19 Feb 2025 19:34:39 GMT
+
+<Response body is empty>
+
+Response code: 204; Time: 91ms (91 ms); Content length: 0 bytes (0 B)
+```
+
+## Deleting one cinema - Not Found
+
+```http
+DELETE http://localhost:8080/api/cinemas/9
+
+HTTP/1.1 404 
+Content-Length: 0
+Date: Wed, 19 Feb 2025 19:36:49 GMT
+
+<Response body is empty>
+
+Response code: 404; Time: 18ms (18 ms); Content length: 0 bytes (0 B)
+```
+
 

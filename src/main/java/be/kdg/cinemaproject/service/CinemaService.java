@@ -1,5 +1,6 @@
 package be.kdg.cinemaproject.service;
 
+import be.kdg.cinemaproject.domain.Movie;
 import org.springframework.stereotype.Service;
 import be.kdg.cinemaproject.domain.Cinema;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,5 @@ public interface CinemaService {
     void saveCinema(Cinema cinema);
     Cinema findByIdWithMovies(Long id);
     void deleteById(Long id);
-    Cinema findByName(String name);
-    List<Cinema> findCinemasByAddress(String address);
+    Cinema existsById(Long id);
 }

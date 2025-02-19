@@ -2,6 +2,7 @@ package be.kdg.cinemaproject.service;
 
 import be.kdg.cinemaproject.domain.Cinema;
 import be.kdg.cinemaproject.domain.CinemaScreen;
+import be.kdg.cinemaproject.domain.Movie;
 import be.kdg.cinemaproject.domain.Ticket;
 import be.kdg.cinemaproject.domain.exception.CinemaNotFoundException;
 import be.kdg.cinemaproject.repository.CinemaRepository;
@@ -78,23 +79,17 @@ public class CinemaServiceImpl implements CinemaService {
     }
 
     @Override
-    public Cinema findByName(String name) {
-        return cinemaRepository.findByName(name)
-                .orElse(null);
-    }
-
-    @Override
-    public List<Cinema> findCinemasByAddress(String address) {
-        return cinemaRepository.findByAddress(address);
-    }
-
-    @Override
     public Cinema findByIdWithMovies(Long id) {
         Cinema cinema = cinemaRepository.findByIdWithScreens(id);
         if (cinema == null) {
             throw new CinemaNotFoundException("Cinema not found. Id:" + id, 404, "Not found");
         }
         return cinema;
+    }
+
+    @Override
+    public Cinema existsById(Long id) {
+        return cinemaRepository.findById(id).orElse(null);
     }
 }
 

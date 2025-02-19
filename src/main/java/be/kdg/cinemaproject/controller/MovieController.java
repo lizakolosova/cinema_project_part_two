@@ -70,7 +70,7 @@ public class MovieController {
     public String viewMovieDetails(@PathVariable Long id, Model model) {
         try {
             Movie movie = movieService.findByIdWithCinemas(id);
-            model.addAttribute("movie", movie); //TO DO: make this contoller method should addAttribute with View model
+            model.addAttribute("movie", movie); //TO DO: make this controller method should addAttribute with View model
             return "movie/movie-details";
         } catch (MovieNotFoundException ex) {
             log.error("Movie not found with id: {}", id);

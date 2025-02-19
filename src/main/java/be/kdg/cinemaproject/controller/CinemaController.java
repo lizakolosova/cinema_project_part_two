@@ -87,9 +87,4 @@ public class CinemaController {
             return "error/other-error";
         }
     }
-    @PostMapping("/delete/{id}")
-    public String deleteCinema(@PathVariable Long id) {
-        cinemaService.deleteById(id); //TO DO: make delete with REST
-        return "redirect:/cinemas";
-    }
 }

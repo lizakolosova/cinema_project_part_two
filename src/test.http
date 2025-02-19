@@ -13,3 +13,11 @@ DELETE http://localhost:8080/api/movies/2
 ###
 
 DELETE http://localhost:8080/api/movies/9
+
+###
+
+DELETE http://localhost:8080/api/cinemas/1
+
+###
+
+DELETE http://localhost:8080/api/cinemas/9
