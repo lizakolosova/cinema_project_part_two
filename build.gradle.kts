@@ -30,6 +30,8 @@ dependencies {
     implementation ("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.glassfish:jakarta.el:4.0.2")
     implementation ("org.webjars:jquery:3.6.0")
+    implementation ("org.mapstruct:mapstruct:1.6.3")
+    annotationProcessor ("org.mapstruct:mapstruct-processor:1.6.3")
 }
 
 tasks.withType<Test> {

@@ -4,30 +4,60 @@
 <head>
     <title th:text="#{project.cinema.title}">Project Cinema</title>
     <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
-    <link href="/webjars/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+    <link rel="stylesheet" th:href="@{/css/index.css}" />
 </head>
-<body>
-<!-- Insert your navbar here -->
+<body class = "pb-5">
 <div th:insert="~{fragments :: navbar}"></div>
-
-<!-- Language selection dropdown -->
-<div class="container mt-3 text-end">
+<div class="container mt-3 pb-5 text-end">
     <form action="/lang" method="get">
-        <select name="lang" onchange="this.form.submit()" class="form-select" style="max-width: 150px;">
-            <option value="en" th:selected="${#locale.language == 'en'}">English</option>
-            <option value="fr" th:selected="${#locale.language == 'fr'}">French</option>
+        <select name="lang" onchange="this.form.submit()" class="form-select d-inline-block" style="max-width: 150px;">
+            <option value="en" th:selected="${#locale.language == 'en'}">🇬🇧 English</option>
+            <option value="fr" th:selected="${#locale.language == 'fr'}">🇫🇷 French</option>
         </select>
     </form>
 </div>
 
-<div class="container mt-5">
-    <div class="text-center">
-        <h1 class="display-4" th:text="#{project.cinema.welcome}">Welcome to Project Cinema</h1>
-        <p class="lead" th:text="#{project.cinema.description}">Explore cinemas, manage movies, and discover cinematic experiences effortlessly.</p>
-        <hr class="my-4">
+<div class="container text-center mt-5">
+    <div class="hero-section">
+        <h1 class="display-3 fw-bold" th:text="#{project.cinema.welcome}">Welcome to Project Cinema</h1>
+        <p class="lead mt-3" th:text="#{project.cinema.description}">Explore cinemas, manage movies, and discover cinematic experiences effortlessly.</p>
+        <a href="/cinemas" class="btn btn-light btn-outline-dark btn-lg mt-3">Explore Cinemas</a>
+        <a href="/movies" class="btn btn-outline-light btn-lg mt-3">Browse Movies</a>
     </div>
-    <div th:insert="~{fragments :: footer}"></div>
 </div>
+
+<div id="cinemaFactsCarousel" class="carousel slide mt-5 pb-5 text-light" data-bs-ride="carousel">
+    <div class="carousel-inner text-center">
+        <div class="carousel-item active">
+            <h3>🎬 Fun Fact</h3>
+            <p>The first movie ever made, "Roundhay Garden Scene," was filmed in 1888!</p>
+        </div>
+        <div class="carousel-item">
+            <h3>🍿 Fun Fact</h3>
+            <p>Popcorn became a movie theater snack during the Great Depression.</p>
+        </div>
+        <div class="carousel-item">
+            <h3>🎥 Fun Fact</h3>
+            <p>The longest movie ever made is "Logistics" (857 hours long)!</p>
+        </div>
+        <div class="carousel-item">
+            <h3>🎞️ Fun Fact</h3>
+            <p>James Cameron waited 12 years to make "Avatar" because the CGI technology didn’t exist yet.</p>
+        </div>
+        <div class="carousel-item">
+            <h3>🏆 Fun Fact</h3>
+            <p>Walt Disney holds the record for most Oscar wins – 22!</p>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#cinemaFactsCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#cinemaFactsCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon"></span>
+    </button>
+</div>
+<div th:insert="~{fragments :: footer}"></div>
 <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

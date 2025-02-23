@@ -22,7 +22,7 @@ Accept: application/json
 HTTP/1.1 200 
 Content-Type: application/json
 Transfer-Encoding: chunked
-Date: Tue, 18 Feb 2025 16:27:40 GMT
+Date: Sun, 23 Feb 2025 20:57:19 GMT
 
 [
   {
@@ -33,9 +33,9 @@ Date: Tue, 18 Feb 2025 16:27:40 GMT
   }
 ]
 Response file saved.
-> 2025-02-18T172740.200.json
+> 2025-02-23T215719.200.json
 
-Response code: 200; Time: 24ms (24 ms); Content length: 79 bytes (79 B)
+Response code: 200; Time: 117ms (117 ms); Content length: 79 bytes (79 B)
 ```
 ## Searching for movies - No content
 ```http
@@ -97,6 +97,142 @@ Date: Wed, 19 Feb 2025 19:36:49 GMT
 <Response body is empty>
 
 Response code: 404; Time: 18ms (18 ms); Content length: 0 bytes (0 B)
+```
+
+# Week 3
+
+## Creating one ticket - Created
+
+```http
+POST http://localhost:8080/api/tickets
+Accept: application/json
+Content-Type: application/json
+
+{
+  "price": 14,
+  "showtime": "2025-02-26T15:30:00",
+  "format": "3D",
+  "availability": "AVAILABLE",
+  "image": "ticket1.jpg"
+}
+
+HTTP/1.1 201 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 23 Feb 2025 20:59:13 GMT
+
+{
+  "id": 16,
+  "price": 14.0,
+  "showtime": "2025-02-26T15:30:00",
+  "format": "3D",
+  "availability": "AVAILABLE"
+}
+Response file saved.
+> 2025-02-23T215913.201.json
+
+Response code: 201; Time: 17ms (17 ms); Content length: 96 bytes (96 B)
+```
+
+## Creating one ticket - Bad request
+
+```http
+POST http://localhost:8080/api/tickets
+Accept: application/json
+Content-Type: application/json
+
+{
+  "price": 14,
+  "showtime": "2025-02-26T15:30:00",
+  "format": "3D",
+  "availability": "AVAILABLE",
+  "image": ""
+}
+
+```
+
+
+## Update(patch) one ticket - No content
+
+```http
+PATCH http://localhost:8080/api/tickets/12
+Accept: application/json
+Content-Type: application/json
+
+{
+  "price": 15,
+  "showtime": "2025-02-26T15:30:00",
+  "availability": "AVAILABLE"
+}
+
+HTTP/1.1 204 
+Content-Type: application/json
+Date: Sun, 23 Feb 2025 21:02:16 GMT
+
+<Response body is empty>
+
+Response code: 204; Time: 39ms (39 ms); Content length: 0 bytes (0 B)
+```
+
+## Update(patch) one ticket - Bad request
+
+```http
+PATCH http://localhost:8080/api/tickets/12
+Accept: application/json
+Content-Type: application/json
+
+{
+"price": 100,
+"showtime": "2025-02-26T15:30:00",
+"availability": "AVAILABLE"
+}
+
+HTTP/1.1 400 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 23 Feb 2025 21:04:18 GMT
+Connection: close
+
+{
+  "timestamp": "2025-02-23T21:04:18.520+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "path": "/api/tickets/12"
+}
+Response file saved.
+> 2025-02-23T220418.400.json
+
+Response code: 400; Time: 9ms (9 ms); Content length: 105 bytes (105 B)
+```
+
+## Update(patch) one ticket - Not found
+
+```http
+PATCH http://localhost:8080/api/tickets/19
+Accept: application/json
+Content-Type: application/json
+
+{
+"price": 14,
+"showtime": "2025-02-26T15:30:00",
+"availability": "AVAILABLE"
+}
+
+HTTP/1.1 404 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Sun, 23 Feb 2025 21:05:27 GMT
+
+{
+  "timestamp": "2025-02-23T21:05:27.139+00:00",
+  "status": 404,
+  "error": "Not Found",
+  "path": "/api/tickets/19"
+}
+Response file saved.
+> 2025-02-23T220527.404.json
+
+Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ```
 
 

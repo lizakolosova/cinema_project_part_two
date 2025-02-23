@@ -1,0 +1,11 @@
+body {
+    background: url('/images/cinema-bg.jpg') no-repeat center center fixed;
+    background-size: cover;
+    color: #f4e8e8;
+}
+
+.hero-section {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 80px 20px;
+    border-radius: 15px;
+}

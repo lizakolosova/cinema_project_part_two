@@ -1,0 +1,95 @@
+body {
+    background-color: #FFE5B4;
+    color: #4A403A;
+}
+.form-container {
+    max-width: 600px;
+    margin: auto;
+}
+.form-card {
+    background: #FFF5E1;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+h1 {
+    color: #D77A61;
+    text-align: center;
+    font-weight: bold;
+}
+.btn-custom {
+    background-color: #FF9F80;
+    color: #4A403A;
+    border: none;
+    transition: 0.3s;
+}
+.btn-custom:hover {
+    background-color: #E67E5F;
+    color: white;
+}
+.form-control {
+    border-radius: 8px;
+}
+.alert {
+    border-radius: 8px;
+}
+.error {
+    color: red;
+    font-size: 0.9rem;
+    padding-top: 5px;
+}
+.card {
+    background: #FFF5E1;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    transition: transform 0.3s ease-in-out;
+}
+.card img {
+    height: 400px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+.card-body {
+    padding: 15px;
+    text-align: center;
+}
+.btn-remove {
+    background-color: #FF9F80;
+    color: #FFF;
+    border: none;
+    transition: 0.3s;
+}
+.btn-remove:hover {
+    background-color: #E67E5F;
+}
+h1, h3 {
+    text-align: center;
+}
+.filter-form {
+    background: #FFF5E1;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    margin: auto;
+}
+.form-control {
+    border-radius: 8px;
+}
+.filter-btn {
+    background-color: #FF9F80;
+    color: #4A403A;
+    border: none;
+    transition: 0.3s;
+}
+.filter-btn:hover {
+    background-color: #E67E5F;
+    color: white;
+}
+
+body {
+    background-color: #FFE5B4;
+    color: #4A403A;
+}
+

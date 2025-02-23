@@ -26,6 +26,13 @@ public class Ticket {
     @Column(name = "format")
     private String format;
 
+    @Column(name = "image")
+    private String image;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "availability")
+    private Availability availability;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
 

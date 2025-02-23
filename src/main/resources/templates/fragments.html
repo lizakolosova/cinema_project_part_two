@@ -7,7 +7,7 @@
 <body>
 
 <th:block th:fragment="navbar">
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <div class="container-fluid">
             <a class="navbar-brand" th:href="@{/home}">My Cinema App
                 <img th:src="@{/icons/camera-reels-fill.svg}" class="icon-class" alt="App Icon"></a>
@@ -16,34 +16,27 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/cinemas}">All Cinemas</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/movies}">All Movies</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/cinemas/addcinema}">Add Cinema</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/movies/addmovie}">Add Movie</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" th:href="@{/movies/find}">Find Movie</a>
-                    </li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/cinemas}">All Cinemas</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/movies}">All Movies</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/tickets}">All Tickets</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/cinemas/addcinema}">Add Cinema</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/movies/addmovie}">Add Movie</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/tickets/add}">Add Ticket</a></li>
+                    <li class="nav-item"><a class="nav-link" th:href="@{/movies/find}">Find Movie</a></li>
                 </ul>
             </div>
         </div>
     </nav>
-    <script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js}"></script>
 </th:block>
 
 <th:block th:fragment="footer">
-    <footer class="bg-light text-center fixed-bottom">
+    <footer class="text-center fixed-bottom">
         <div class="container d-flex justify-content-center align-items-center" style="height: 60px;">
             <p class="mb-0">&copy; 2024 My Cinema App. All rights reserved.</p>
         </div>
     </footer>
 </th:block>
+
+<script th:src="@{/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js}"></script>
 </body>
 </html>

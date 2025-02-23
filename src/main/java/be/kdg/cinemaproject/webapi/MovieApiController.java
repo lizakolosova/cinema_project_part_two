@@ -1,8 +1,7 @@
 package be.kdg.cinemaproject.webapi;
 
-import be.kdg.cinemaproject.domain.Movie;
 import be.kdg.cinemaproject.service.MovieService;
-import org.springframework.http.HttpStatus;
+import be.kdg.cinemaproject.webapi.dto.MovieDto;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

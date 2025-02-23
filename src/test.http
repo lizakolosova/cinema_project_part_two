@@ -21,3 +21,71 @@ DELETE http://localhost:8080/api/cinemas/1
 ###
 
 DELETE http://localhost:8080/api/cinemas/9
+
+###
+
+
+POST http://localhost:8080/api/tickets
+Accept: application/json
+Content-Type: application/json
+
+{
+  "price": 14,
+  "showtime": "2025-02-26T15:30:00",
+  "format": "3D",
+  "availability": "AVAILABLE",
+  "image": "ticket1.jpg"
+}
+
+###
+
+POST http://localhost:8080/api/tickets
+Accept: application/json
+Content-Type: application/json
+
+{
+  "price": 14,
+  "showtime": "2025-02-26T15:30:00",
+  "format": "3D",
+  "availability": "AVAILABLE",
+  "image": "ticket1.jpg"
+}
+
+###
+
+
+PATCH http://localhost:8080/api/tickets/12
+Accept: application/json
+Content-Type: application/json
+
+{
+  "price": 15,
+  "showtime": "2025-02-26T15:30:00",
+  "availability": "AVAILABLE"
+}
+
+
+###
+
+
+PATCH http://localhost:8080/api/tickets/12
+Accept: application/json
+Content-Type: application/json
+
+{
+"price": 100,
+"showtime": "2025-02-26T15:30:00",
+"availability": "AVAILABLE"
+}
+
+###
+
+PATCH http://localhost:8080/api/tickets/19
+Accept: application/json
+Content-Type: application/json
+
+{
+"price": 14,
+"showtime": "2025-02-26T15:30:00",
+"availability": "AVAILABLE"
+}

@@ -8,7 +8,6 @@ import be.kdg.cinemaproject.service.CinemaService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,7 +24,6 @@ public class CinemaController {
     private final CinemaService cinemaService;
     private final CinemaViewModelToCinemaConverter converter;
 
-    @Autowired
     public CinemaController(CinemaService cinemaService, CinemaViewModelToCinemaConverter converter) {
         this.cinemaService = cinemaService;
         this.converter = converter;
@@ -73,7 +71,7 @@ public class CinemaController {
         cinemaService.saveCinema(cinema);
         return "redirect:/cinemas";
     }
-    @GetMapping("/cinema-details/{id}")
+    @GetMapping("/details/{id}")
     public String viewCinemaDetails(@PathVariable Long id, Model model) {
         try {
             Cinema cinema = cinemaService.findByIdWithMovies(id);

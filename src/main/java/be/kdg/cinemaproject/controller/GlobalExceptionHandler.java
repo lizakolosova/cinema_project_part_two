@@ -1,10 +1,15 @@
 package be.kdg.cinemaproject.controller;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.dao.DataAccessException;
+import org.springframework.data.crossstore.ChangeSetPersister;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
 
@@ -20,13 +25,15 @@ public class GlobalExceptionHandler {
         model.addAttribute("timestamp", LocalDateTime.now());
         return "error/database-error";
     }
-
-    @ExceptionHandler(Exception.class)
-    public String handleGeneralException(Exception ex, Model model) {
-        log.error(ex.getMessage());
-        model.addAttribute("message", ex.getMessage());
-        model.addAttribute("condition", "Application error");
-        model.addAttribute("time",  LocalDateTime.now());
-        return "error/other-error";
+    @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
+    public Object handleNotFoundException(final HttpServletRequest request, final ChangeSetPersister.NotFoundException e) {
+        if (request.getRequestURI().startsWith("/api")) {
+            return new ResponseEntity<>(new ErrorDto(e.getMessage()), HttpStatus.NOT_FOUND);
+        }
+        ModelAndView modelAndView = new ModelAndView("error/other-error");
+        modelAndView.addObject("message", e.getMessage());
+        return modelAndView;
+    }
+    private record ErrorDto(String message) {
     }
 }
