@@ -93,3 +93,17 @@ body {
     color: #4A403A;
 }
 
+.image-container {
+    width: 100%;
+    text-align: center;
+}
+
+.image-container a {
+    display: inline-block;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+}
+

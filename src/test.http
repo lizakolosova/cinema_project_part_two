@@ -48,7 +48,7 @@ Content-Type: application/json
   "showtime": "2025-02-26T15:30:00",
   "format": "3D",
   "availability": "AVAILABLE",
-  "image": "ticket1.jpg"
+  "image": ""
 }
 
 ###

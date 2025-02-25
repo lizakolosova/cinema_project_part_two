@@ -18,19 +18,19 @@
     <div class="row g-4">
         <div th:each="ticket : ${tickets}" th:id="'ticket-' + ${ticket.id}" class="col-lg-4 col-md-6 col-sm-12">
             <div class="card h-100">
-                <img th:src="@{/images/{image}(image=${ticket.image})}" class="card-img-top img-fluid"
-                     alt="Image of ticket for [[${ticket.format}]]" />
+                <div class="position-relative">
+                    <a th:href="@{/tickets/details/{id}(id=${ticket.id})}">
+                        <img th:src="@{/images/{image}(image=${ticket.image})}" class="card-img-top img-fluid"
+                             alt="Image of ticket for [[${ticket.format}]]" />
+                    </a>
+                </div>
                 <div class="card-body d-flex flex-column flex-grow-1">
-                    <a th:href="@{/tickets/details/{id}(id=${ticket.id})}" class="stretched-link"></a>
                     <h5 class="card-title">Ticket for [[${ticket.format}]]</h5>
                     <div class="ticket-info">
                         <p>Price: €[[${ticket.price}]]</p>
                         <p>Showtime: [[${#temporals.format(ticket.showtime, 'yyyy-MM-dd HH:mm')}]]</p>
                         <p>Availability: <strong>[[${ticket.availability}]]</strong></p>
                     </div>
-                    <button class="btn btn-remove mt-2 remove-button" th:attr="data-ticket-id=${ticket.id}">
-                        Remove
-                    </button>
                 </div>
             </div>
         </div>

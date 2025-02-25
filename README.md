@@ -149,6 +149,25 @@ Content-Type: application/json
   "image": ""
 }
 
+POST http://localhost:8080/api/tickets
+
+HTTP/1.1 400 
+Content-Type: application/json
+Transfer-Encoding: chunked
+Date: Mon, 24 Feb 2025 18:38:01 GMT
+Connection: close
+
+{
+  "timestamp": "2025-02-24T18:38:01.870+00:00",
+  "status": 400,
+  "error": "Bad Request",
+  "path": "/api/tickets"
+}
+Response file saved.
+> 2025-02-24T193801.400.json
+
+Response code: 400; Time: 291ms (291 ms); Content length: 102 bytes (102 B)
+
 ```
 
 

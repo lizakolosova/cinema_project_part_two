@@ -9,11 +9,11 @@ form.addEventListener('submit', async e => {
         },
         method: 'POST',
         body: JSON.stringify({
-            price: document.querySelector('#price').value,
-            showTime: document.querySelector('#showtime').value,
+            price: parseFloat(document.querySelector('#price').value),
+            showtime: document.querySelector('#showtime').value,
             format: document.querySelector('#format').value,
             image: document.querySelector('#image').value,
-            availability: document.querySelector('#availability').value,
+            availability: document.querySelector('#availability').value.toUpperCase(),
         })
     });
 
