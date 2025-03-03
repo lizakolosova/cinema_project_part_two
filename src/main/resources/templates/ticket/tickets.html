@@ -1,45 +1,45 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<meta charset="UTF-8">
 <head>
+    <meta charset="UTF-8">
+    <title th:text="#{all.tickets.title}">All Tickets</title>
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-    <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
     <script src="/js/delete-element.js" defer></script>
-    <title th:text="#{all.tickets.title}">All Tickets</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
 </head>
-<body class="d-flex flex-column min-vh-100">
+
+<body class="bg-white text-black d-flex flex-column min-vh-100">
 <div th:insert="~{fragments :: navbar}"></div>
 
 <div class="container pb-5">
-    <h1 th:text="#{all.tickets.title}">All Tickets</h1>
+    <h2 class="text-center mb-4 display-4 text-black" th:text="#{all.tickets.title}">All Tickets</h2>
 
-    <div class="row g-4">
-        <div th:each="ticket : ${tickets}" th:id="'ticket-' + ${ticket.id}" class="col-lg-4 col-md-6 col-sm-12">
-            <div class="card h-100">
-                <div class="position-relative">
-                    <a th:href="@{/tickets/details/{id}(id=${ticket.id})}">
-                        <img th:src="@{/images/{image}(image=${ticket.image})}" class="card-img-top img-fluid"
-                             alt="Image of ticket for [[${ticket.format}]]" />
-                    </a>
-                </div>
-                <div class="card-body d-flex flex-column flex-grow-1">
-                    <h5 class="card-title">Ticket for [[${ticket.format}]]</h5>
-                    <div class="ticket-info">
-                        <p>Price: €[[${ticket.price}]]</p>
-                        <p>Showtime: [[${#temporals.format(ticket.showtime, 'yyyy-MM-dd HH:mm')}]]</p>
-                        <p>Availability: <strong>[[${ticket.availability}]]</strong></p>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div th:each="ticket : ${tickets.tickets()}" th:id="'ticket-' + ${ticket.id}" class="col">
+            <div class="card h-100 bg-black text-white border-white" style="border-radius: 15px;">
+                <a th:href="@{/tickets/details/{id}(id=${ticket.id})}" class="d-block">
+                    <img th:src="@{/images/{image}(image=${ticket.image})}" class="card-img-top img-fluid"
+                         alt="Image of ticket for [[${ticket.format}]]" style="height: 220px; object-fit: cover;">
+                </a>
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title text-center">Ticket for [[${ticket.movieTitle()}]]</h5>
+                    <div class="ticket-info text-center">
+                        <p class="mb-1">Where: <strong>[[${ticket.cinemaName()}]]</strong></p>
+                        <p class="mb-1">Price: <strong>€[[${ticket.price}]]</strong></p>
+                        <p class="mb-1">Showtime: [[${#temporals.format(ticket.showtime, 'yyyy-MM-dd HH:mm')}]]</p>
+                        <p class="mb-1">Availability: <strong>[[${ticket.availability}]]</strong></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 <div th:insert="~{fragments :: footer}"></div>
+<script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+
 
 
 

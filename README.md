@@ -254,4 +254,17 @@ Response file saved.
 Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ```
 
+# Week 4
+## Users that I added:
+### User 1:
+##### username: liza.kolosova@student.kdg.be 
+##### password: student
+### User 2:
+##### username: raoul@kdg.be
+##### password: test
+
+## A page that can be accessed by anyone:
+[Cinemas page](http://localhost:8080/cinemas)
+## A hyperlink to a page that requires authentication to be accessible:
+[Add Cinema page](http://localhost:8080/cinemas/addcinema)
 

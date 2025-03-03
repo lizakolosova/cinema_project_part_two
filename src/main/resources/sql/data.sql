@@ -37,3 +37,7 @@ VALUES
     (10.25, '2025-03-01 14:00:00', 3, '2D', 1, 'ticket2.jpg', 'AVAILABLE'),
     (13.00, '2025-03-01 17:30:00', 4, 'IMAX', 2, 'ticket3.jpg', 'RESERVED');
 
+
+INSERT INTO workers (name, email, password) VALUES ('Raoul', 'raoul@kdg.be', '$2a$12$JV5aoWxLdCpIkZnNrgaI0.pumwUNMtpOpD5rihhiIQJZ8f5UpuXVy');
+INSERT INTO workers (name, email, password) VALUES ('Liza', 'liza.kolosova@student.kdg.be', '$2a$12$e/0fbLh/KGqCOHy74prpvuJYmX9H6PjBx.sk.cn9JqyVw9wnF2Ciy');
+

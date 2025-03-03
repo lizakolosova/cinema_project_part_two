@@ -1,9 +1,12 @@
 package be.kdg.cinemaproject.controller;
 
+import be.kdg.cinemaproject.controller.viewmodel.CinemasViewModel;
+import be.kdg.cinemaproject.controller.viewmodel.MoviesViewModel;
 import be.kdg.cinemaproject.controller.viewmodel.TicketWithCinemasAndMoviesViewModel;
-import be.kdg.cinemaproject.domain.Movie;
+import be.kdg.cinemaproject.controller.viewmodel.TicketsWithCinemasAndMoviesViewModel;
 import be.kdg.cinemaproject.domain.Ticket;
-import be.kdg.cinemaproject.domain.exception.MovieNotFoundException;
+import be.kdg.cinemaproject.service.CinemaService;
+import be.kdg.cinemaproject.service.MovieService;
 import be.kdg.cinemaproject.service.TicketService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,15 +22,18 @@ import java.util.List;
 public class TicketController {
 
     private final TicketService ticketService;
+    private final MovieService movieService;
+    private final CinemaService cinemaService;
 
-    public TicketController(TicketService ticketService) {
+    public TicketController(TicketService ticketService, MovieService movieService, CinemaService cinemaService) {
         this.ticketService = ticketService;
+        this.movieService = movieService;
+        this.cinemaService = cinemaService;
     }
 
     @GetMapping()
     public String getAll(Model model) {
-        List<Ticket> tickets = ticketService.getAll();
-        model.addAttribute("tickets", tickets);
+        model.addAttribute("tickets", TicketsWithCinemasAndMoviesViewModel.from(ticketService.getAll()));
         return "ticket/tickets";
     }
 
@@ -40,6 +46,9 @@ public class TicketController {
 
     @GetMapping("/add")
     public ModelAndView add() {
-        return new ModelAndView("ticket/addticket");
+        final ModelAndView modelAndView = new ModelAndView("ticket/addticket");
+        modelAndView.addObject("movies", MoviesViewModel.from(movieService.getAllMovies()));
+        modelAndView.addObject("cinemas", CinemasViewModel.from(cinemaService.getAllCinemas()));
+        return modelAndView;
     }
 }

@@ -2,7 +2,11 @@ const form = document.querySelector('#add-ticket-form');
 form.addEventListener('submit', async e => {
     e.preventDefault();
 
-    const response = await fetch('/api/tickets', {
+    const cinemaId = document.querySelector('#cinema').value;
+
+    const url = `/api/cinemas/${cinemaId}/tickets`;
+
+    const response = await fetch(url, {
         headers: {
             'Content-Type': 'application/json',
             'Accept': 'application/json'
@@ -14,6 +18,8 @@ form.addEventListener('submit', async e => {
             format: document.querySelector('#format').value,
             image: document.querySelector('#image').value,
             availability: document.querySelector('#availability').value.toUpperCase(),
+            movieId: document.querySelector('#movie').value,
+            cinemaId: cinemaId
         })
     });
 
@@ -24,3 +30,4 @@ form.addEventListener('submit', async e => {
         alert('Something went wrong while creating the ticket');
     }
 });
+

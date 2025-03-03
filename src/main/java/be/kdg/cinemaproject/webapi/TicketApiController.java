@@ -24,16 +24,6 @@ public class TicketApiController {
         this.ticketMapper = ticketMapper;
     }
 
-    @PostMapping
-    public ResponseEntity<TicketDto> add(@RequestBody @Valid final AddTicketDto addTicketDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid ticket data");
-        }
-        final Ticket ticket = ticketService.add(addTicketDto.price(), addTicketDto.showtime(), addTicketDto.format(), addTicketDto.availability(), addTicketDto.image());
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(ticketMapper.toTicketDto(ticket));
-    }
-
     @PatchMapping("/{id}")
     public ResponseEntity<TicketDto> patch(@PathVariable("id") final Long id,
                                            @RequestBody @Valid final PatchTicketDto patchTicketDto, BindingResult bindingResult) {

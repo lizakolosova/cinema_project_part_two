@@ -28,6 +28,8 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation ("org.springframework.boot:spring-boot-starter-validation")
+    implementation ("org.springframework.boot:spring-boot-starter-security")
+    implementation ("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
     implementation("org.glassfish:jakarta.el:4.0.2")
     implementation ("org.webjars:jquery:3.6.0")
     implementation ("org.mapstruct:mapstruct:1.6.3")

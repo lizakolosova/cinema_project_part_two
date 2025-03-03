@@ -60,6 +60,8 @@ public class Movie {
         this.genre = genre;
         this.image = image;
     }
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Worker worker;
 
     @Override
     public String toString() {

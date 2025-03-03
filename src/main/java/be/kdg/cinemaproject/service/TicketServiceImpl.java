@@ -1,8 +1,14 @@
 package be.kdg.cinemaproject.service;
 
 import be.kdg.cinemaproject.domain.Availability;
+import be.kdg.cinemaproject.domain.Cinema;
+import be.kdg.cinemaproject.domain.Movie;
 import be.kdg.cinemaproject.domain.Ticket;
+import be.kdg.cinemaproject.domain.exception.CinemaNotFoundException;
+import be.kdg.cinemaproject.domain.exception.MovieNotFoundException;
 import be.kdg.cinemaproject.domain.exception.TicketNotFoundException;
+import be.kdg.cinemaproject.repository.CinemaRepository;
+import be.kdg.cinemaproject.repository.MovieRepository;
 import be.kdg.cinemaproject.repository.TicketRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,19 +21,32 @@ import java.util.List;
 public class TicketServiceImpl implements TicketService {
 
     private final TicketRepository ticketRepository;
+    private final CinemaRepository cinemaRepository;
+    private final MovieRepository movieRepository;
 
-    public TicketServiceImpl(TicketRepository ticketRepository) {
+    public TicketServiceImpl(TicketRepository ticketRepository, CinemaRepository cinemaRepository, MovieRepository movieRepository) {
         this.ticketRepository = ticketRepository;
+        this.cinemaRepository = cinemaRepository;
+        this.movieRepository = movieRepository;
     }
 
     @Override
-    public Ticket add(final double price, final LocalDateTime showtime, final String format, final Availability availability, final String image) {
+    public Ticket add(final double price, final LocalDateTime showtime, final String format, final Availability availability, final String image, final Long movieId, final Long cinemaId) {
+        Movie movie = movieRepository.findById(movieId)
+                .orElseThrow(() -> new MovieNotFoundException("Movie not found", 404, "Not Found"));
+
+        Cinema cinema = cinemaRepository.findById(cinemaId)
+                .orElseThrow(() -> new CinemaNotFoundException("Cinema not found", 404, "Not Found"));
+
         final Ticket ticket = new Ticket();
         ticket.setPrice(price);
         ticket.setShowtime(showtime);
         ticket.setFormat(format);
         ticket.setAvailability(availability);
         ticket.setImage(image);
+        ticket.setMovie(movie);
+        ticket.setCinema(cinema);
+
         return ticketRepository.save(ticket);
     }
 
@@ -37,7 +56,7 @@ public class TicketServiceImpl implements TicketService {
     }
 
     public List<Ticket> getAll() {
-        return ticketRepository.findAll();
+        return ticketRepository.findAllWithDetails();
     }
 
     @Override
