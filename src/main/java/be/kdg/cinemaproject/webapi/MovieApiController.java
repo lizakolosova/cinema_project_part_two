@@ -1,8 +1,12 @@
 package be.kdg.cinemaproject.webapi;
 
+import be.kdg.cinemaproject.domain.Role;
+import be.kdg.cinemaproject.domain.exception.TicketNotFoundException;
 import be.kdg.cinemaproject.service.MovieService;
 import be.kdg.cinemaproject.webapi.dto.MovieDto;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,13 +37,15 @@ public class MovieApiController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public ResponseEntity<Void> remove(@PathVariable("id") final Long id) {
-        if (movieService.existsById(id) == null) {
+        try {
+                movieService.deleteById(id);
+                return ResponseEntity.noContent().build();
+        } catch (
+                TicketNotFoundException e) {
             return ResponseEntity.notFound().build();
         }
-
-        movieService.deleteById(id);
-        return ResponseEntity.noContent().build();
     }
  }
 

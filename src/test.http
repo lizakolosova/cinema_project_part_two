@@ -69,9 +69,10 @@ Content-Type: application/json
 ###
 
 
-PATCH http://localhost:8080/api/tickets/12
+PATCH http://localhost:8080/api/tickets/6
 Accept: application/json
 Content-Type: application/json
+Cookie: JSESSIONID=D742E37A8C9375E57E584A3D7B5FA25F
 
 {
 "price": 100,
@@ -90,3 +91,17 @@ Content-Type: application/json
 "showtime": "2025-02-26T15:30:00",
 "availability": "AVAILABLE"
 }
+
+###
+
+
+POST http://localhost:8080/login
+Accept: application/json
+Content-Type: application/json
+
+{
+  "username": "raoul@kdg.be",
+  "password": "test"
+}
+
+###

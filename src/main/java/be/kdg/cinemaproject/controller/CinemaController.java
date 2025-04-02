@@ -8,6 +8,7 @@ import be.kdg.cinemaproject.service.CinemaService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -55,6 +56,7 @@ public class CinemaController {
     }
 
     @PostMapping("/addcinema")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public String addCinema(
             @Valid @ModelAttribute("cinemaViewModel") CinemaViewModelForForm cinemaViewModel,
             BindingResult bindingResult,

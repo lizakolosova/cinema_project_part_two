@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Entity
@@ -36,7 +35,9 @@ public class Ticket {
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
 
-
     @ManyToOne(fetch = FetchType.LAZY)
     private Cinema cinema;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Visitor visitor;
 }

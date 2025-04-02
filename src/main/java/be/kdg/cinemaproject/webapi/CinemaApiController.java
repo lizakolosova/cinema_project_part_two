@@ -1,6 +1,7 @@
 package be.kdg.cinemaproject.webapi;
 
 import be.kdg.cinemaproject.domain.Ticket;
+import be.kdg.cinemaproject.security.CustomUserDetails;
 import be.kdg.cinemaproject.service.CinemaService;
 import be.kdg.cinemaproject.service.TicketService;
 import be.kdg.cinemaproject.webapi.dto.AddTicketDto;
@@ -9,6 +10,8 @@ import be.kdg.cinemaproject.webapi.dto.TicketMapper;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -28,6 +31,7 @@ public class CinemaApiController {
     }
 
     @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public ResponseEntity<Void> remove(@PathVariable("id") final Long id) {
         if (cinemaService.existsById(id) == null) {
             return ResponseEntity.notFound().build();
@@ -37,14 +41,17 @@ public class CinemaApiController {
         return ResponseEntity.noContent().build();
     }
 
-    // why not api/cinemas/{cinemaId}/movies/{movieId}/tickets
     @PostMapping("/{id}/tickets")
-    public ResponseEntity<TicketDto> add(@PathVariable Long id, @RequestBody @Valid final AddTicketDto addTicketDto, BindingResult bindingResult) {
+    @PreAuthorize("@authorizationService.canModifyTicket(principal, #id)")
+    public ResponseEntity<TicketDto> add(@PathVariable Long id,
+                                         @RequestBody @Valid final AddTicketDto addTicketDto,
+                                         BindingResult bindingResult,
+                                         @AuthenticationPrincipal final CustomUserDetails userDetails) {
         if (bindingResult.hasErrors()) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid ticket data");
         }
 
-        final Ticket ticket = ticketService.add(addTicketDto.price(), addTicketDto.showtime(), addTicketDto.format(), addTicketDto.availability(), addTicketDto.image(), addTicketDto.movieId(), id);
+        final Ticket ticket = ticketService.add(addTicketDto.price(), addTicketDto.showtime(), addTicketDto.format(), addTicketDto.availability(), addTicketDto.image(), addTicketDto.movieId(), id, userDetails.getVisitorId());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ticketMapper.toTicketDto(ticket));
     }

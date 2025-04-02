@@ -6,10 +6,10 @@ import lombok.Setter;
 import java.util.List;
 
 @Entity
-@Table(name = "workers")
+@Table(name = "visitors")
 @Getter
 @Setter
-public class Worker {
+public class Visitor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
@@ -24,6 +24,10 @@ public class Worker {
     @Column(name = "password")
     private String password;
 
-    @OneToMany(mappedBy = "worker", fetch = FetchType.LAZY)
-    private List<Movie> movies;
+    @OneToMany(mappedBy = "visitor", fetch = FetchType.LAZY)
+    private List<Ticket> ticket;
+
+    @Column(name = "role", nullable = false)
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }

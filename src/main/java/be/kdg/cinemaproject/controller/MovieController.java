@@ -7,6 +7,7 @@ import be.kdg.cinemaproject.controller.converter.MovieViewModelToMovieConverter;
 import be.kdg.cinemaproject.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -54,6 +55,7 @@ public class MovieController {
     }
 
     @PostMapping("/addmovie")
+    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public ModelAndView addMovie(
             @Valid @ModelAttribute("movieViewModel") MovieViewModelForForm movieViewModel,
             BindingResult bindingResult) {

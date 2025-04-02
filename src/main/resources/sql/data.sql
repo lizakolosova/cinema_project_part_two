@@ -20,24 +20,24 @@ INSERT INTO cinema_screens (cinema_id, screen_number, screen_type, size) VALUES
                                                           (4, 7,'Regular', 60),
                                                           (4, 6, 'Small', 25);
 
-INSERT INTO tickets (price, show_time, movie_id, format, cinema_id, image, availability)
+INSERT INTO visitors (name, email, password, role) VALUES ('Raoul', 'raoul@kdg.be', '$2a$12$JV5aoWxLdCpIkZnNrgaI0.pumwUNMtpOpD5rihhiIQJZ8f5UpuXVy', 'VISITOR');
+INSERT INTO visitors (name, email, password, role) VALUES ('Liza', 'liza.kolosova@student.kdg.be', '$2a$12$JV5aoWxLdCpIkZnNrgaI0.pumwUNMtpOpD5rihhiIQJZ8f5UpuXVy', 'ADMINISTRATOR');
+
+
+
+INSERT INTO tickets (price, show_time, movie_id, format, cinema_id, image, availability, visitor_id)
 VALUES
-    (15.00, '2025-02-22 17:00:00', 1, '2D', 1, 'ticket1.jpg', 'SOLD'),
-    (13.50, '2025-02-22 19:30:00', 2, '3D', 2, 'ticket2.jpg', 'AVAILABLE'),
-    (11.00, '2025-02-23 16:00:00', 3, '2D', 3, 'ticket2.jpg', 'AVAILABLE'),
-    (9.50, '2025-02-23 21:00:00', 4, 'IMAX', 4, 'ticket4.jpg', 'AVAILABLE'),
-    (10.50, '2025-02-24 13:00:00', 1, '3D', 1, 'ticket1.jpg', 'AVAILABLE'),
-    (14.00, '2025-02-24 18:00:00', 2, '2D', 2, 'ticket3.jpg', 'SOLD'),
-    (8.00, '2025-02-25 14:30:00', 3, '2D', 3, 'ticket4.jpg', 'AVAILABLE'),
-    (12.50, '2025-02-25 20:00:00', 4, 'IMAX', 4, 'ticket1.jpg', 'RESERVED'),
-    (7.50, '2025-02-26 12:00:00', 1, '2D', 1, 'ticket1.jpg', 'AVAILABLE'),
-    (10.00, '2025-02-26 15:30:00', 2, '3D', 2, 'ticket2.jpg', 'RESERVED'),
-    (11.50, '2025-02-27 19:00:00', 3, '2D', 3, 'ticket2.jpg', 'SOLD'),
-    (8.75, '2025-02-28 16:30:00', 1, '3D', 4, 'ticket4.jpg', 'AVAILABLE'),
-    (10.25, '2025-03-01 14:00:00', 3, '2D', 1, 'ticket2.jpg', 'AVAILABLE'),
-    (13.00, '2025-03-01 17:30:00', 4, 'IMAX', 2, 'ticket3.jpg', 'RESERVED');
-
-
-INSERT INTO workers (name, email, password) VALUES ('Raoul', 'raoul@kdg.be', '$2a$12$JV5aoWxLdCpIkZnNrgaI0.pumwUNMtpOpD5rihhiIQJZ8f5UpuXVy');
-INSERT INTO workers (name, email, password) VALUES ('Liza', 'liza.kolosova@student.kdg.be', '$2a$12$e/0fbLh/KGqCOHy74prpvuJYmX9H6PjBx.sk.cn9JqyVw9wnF2Ciy');
-
+    (15.00, '2025-02-22 17:00:00', 1, '2D', 1, 'ticket1.jpg', 'SOLD', 1),
+    (13.50, '2025-02-22 19:30:00', 2, '3D', 2, 'ticket2.jpg', 'AVAILABLE', 1),
+    (11.00, '2025-02-23 16:00:00', 3, '2D', 3, 'ticket2.jpg', 'AVAILABLE', 1),
+    (9.50, '2025-02-23 21:00:00', 4, 'IMAX', 4, 'ticket4.jpg', 'AVAILABLE', 1),
+    (10.50, '2025-02-24 13:00:00', 1, '3D', 1, 'ticket1.jpg', 'AVAILABLE',1 ),
+    (14.00, '2025-02-24 18:00:00', 2, '2D', 2, 'ticket3.jpg', 'SOLD',2),
+    (8.00, '2025-02-25 14:30:00', 3, '2D', 3, 'ticket4.jpg', 'AVAILABLE',2),
+    (12.50, '2025-02-25 20:00:00', 4, 'IMAX', 4, 'ticket1.jpg', 'RESERVED',2),
+    (7.50, '2025-02-26 12:00:00', 1, '2D', 1, 'ticket1.jpg', 'AVAILABLE',2),
+    (10.00, '2025-02-26 15:30:00', 2, '3D', 2, 'ticket2.jpg', 'RESERVED',2),
+    (11.50, '2025-02-27 19:00:00', 3, '2D', 3, 'ticket2.jpg', 'SOLD',2),
+    (8.75, '2025-02-28 16:30:00', 1, '3D', 4, 'ticket4.jpg', 'AVAILABLE',2),
+    (10.25, '2025-03-01 14:00:00', 3, '2D', 1, 'ticket2.jpg', 'AVAILABLE',2),
+    (13.00, '2025-03-01 17:30:00', 4, 'IMAX', 2, 'ticket3.jpg', 'RESERVED',2);

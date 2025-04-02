@@ -1,3 +1,4 @@
+import {csrfToken, csrfHeaderName} from "./util/csrf.js";
 const form = document.querySelector('#add-ticket-form');
 form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -9,7 +10,8 @@ form.addEventListener('submit', async e => {
     const response = await fetch(url, {
         headers: {
             'Content-Type': 'application/json',
-            'Accept': 'application/json'
+            'Accept': 'application/json',
+            [csrfHeaderName]: csrfToken
         },
         method: 'POST',
         body: JSON.stringify({

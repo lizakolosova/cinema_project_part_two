@@ -16,11 +16,11 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"><a class="nav-link" th:href="@{/cinemas}">All Cinemas</a></li>
+                    <li class="nav-item"><a class="nav-link"  th:href="@{/cinemas}">All Cinemas</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/movies}">All Movies</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/tickets}">All Tickets</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/cinemas/addcinema}">Add Cinema</a></li>
-                    <li class="nav-item"><a class="nav-link" th:href="@{/movies/addmovie}">Add Movie</a></li>
+                    <li class="nav-item"><a class="nav-link" th:if="${#authorization.expression('hasAnyRole(''ADMINISTRATOR'')')}" th:href="@{/cinemas/addcinema}">Add Cinema</a></li>
+                    <li class="nav-item"><a class="nav-link" th:if="${#authorization.expression('hasAnyRole(''ADMINISTRATOR'')')}" th:href="@{/movies/addmovie}">Add Movie</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/tickets/add}">Add Ticket</a></li>
                     <li class="nav-item"><a class="nav-link" th:href="@{/movies/find}">Find Movie</a></li>
                     <li class="nav-item" sec:authorize="isAuthenticated()">

@@ -90,4 +90,5 @@ public class MovieServiceImpl implements MovieService {
     public Movie existsById(Long id) {
         return movieRepository.findById(id).orElse(null);
     }
+
 }

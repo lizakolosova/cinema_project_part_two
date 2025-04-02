@@ -7,17 +7,11 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 public interface MovieRepository extends JpaRepository<Movie, Long> {
-
-    List<Movie> findByTitle(String title);
-
-    List<Movie> findByReleaseDateAfter(LocalDate releaseDate);
-
     @Query("""
             FROM Movie m
             LEFT JOIN FETCH m.tickets ss

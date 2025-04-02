@@ -1,6 +1,5 @@
 package be.kdg.cinemaproject.domain;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.Positive;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -1,6 +1,7 @@
 package be.kdg.cinemaproject.repository;
 
 import be.kdg.cinemaproject.domain.Cinema;
+import be.kdg.cinemaproject.domain.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;

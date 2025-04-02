@@ -1,29 +1,28 @@
 package be.kdg.cinemaproject.security;
 
-import be.kdg.cinemaproject.repository.WorkerRepository;
+import be.kdg.cinemaproject.repository.VisitorRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
-
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
-    private final WorkerRepository workerRepository;
+    private final VisitorRepository visitorRepository;
 
-    public CustomUserDetailsService(WorkerRepository workerRepository) {
-        this.workerRepository = workerRepository;
+    public CustomUserDetailsService(VisitorRepository visitorRepository) {
+        this.visitorRepository = visitorRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
-        return workerRepository
+        return visitorRepository
                 .findByEmail(username)
-                .map(worker -> new CustomUserDetails(
-                        worker.getEmail(),
-                        worker.getPassword(),
-                        Collections.emptyList()
+                .map(visitor -> new CustomUserDetails(
+                        visitor.getEmail(),
+                        visitor.getPassword(),
+                        visitor.getId(),
+                        visitor.getRole()
                 ))
                 .orElseThrow(() -> new UsernameNotFoundException(username));
     }

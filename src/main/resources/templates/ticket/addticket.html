@@ -6,7 +6,9 @@
     <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
     <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-    <script th:src="@{/js/add-ticket.js}" defer></script>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+    <script src="/js/add-ticket.js" type="module"></script>
 </head>
 <body class="bg-white text-black">
 

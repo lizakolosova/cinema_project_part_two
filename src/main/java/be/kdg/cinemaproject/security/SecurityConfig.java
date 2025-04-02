@@ -30,7 +30,13 @@ public class SecurityConfig {
                                 regexMatcher(HttpMethod.GET, "/tickets/details/\\d+"),
                                 regexMatcher(HttpMethod.GET, "/movies/details/\\d+")).permitAll()
                         .requestMatchers(
+                                antMatcher(HttpMethod.GET, "/cinemas/addcinema"),
+                                antMatcher(HttpMethod.GET, "/movies/addmovie"),
+                                antMatcher(HttpMethod.DELETE, "/api/cinemas/\\d+"),
+                                antMatcher(HttpMethod.DELETE, "/api/movies/\\d+")).hasAnyRole("ADMINISTRATOR")
+                        .requestMatchers(
                                 antMatcher("/js/**"),
+                                antMatcher("/js/util/**"),
                                 antMatcher("/css/**"),
                                 antMatcher("/icons/**"),
                                 antMatcher("/images/**"),
@@ -44,7 +50,6 @@ public class SecurityConfig {
                                 response.sendRedirect("/login");
                             }
                         }))
-                .csrf(AbstractHttpConfigurer::disable) // we will enable this again later
                 .formLogin(login -> login.loginPage("/login").permitAll())
                 .build();
     }

@@ -268,3 +268,25 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ## A hyperlink to a page that requires authentication to be accessible:
 [Add Cinema page](http://localhost:8080/cinemas/addcinema)
 
+# Week 5
+## Users are the same: 
+
+### User 1:
+##### username: liza.kolosova@student.kdg.be
+##### password: student
+##### role: administrator
+### User 2:
+##### username: raoul@kdg.be
+##### password: test
+##### role: visitor
+
+##### So, unauthenticated user can access pages with all cinemas, movies, tickets and homepage
+##### Visitor can update ticket and delete it if they are the owner of that ticket
+##### Administrator can add and delete cinemas and movies, also update and delete all tickets.
+
+## Pages where I hide delete button for unauthenticated users: 
+# [Cinemas page](http://localhost:8080/cinemas)
+# [Movies page](http://localhost:8080/movies)
+# [Tickets page](http://localhost:8080/tickets)
+
+## User has relationship to ticket entity.

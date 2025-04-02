@@ -1,8 +1,7 @@
 import {csrfToken, csrfHeaderName} from "./util/csrf.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-    setupDeleteButtons('cinema');
-    setupDeleteButtons('movie');
+    setupDeleteButtons('ticket');
 });
 
 function setupDeleteButtons(type) {
@@ -16,7 +15,7 @@ function setupDeleteButtons(type) {
                 {
                     method: 'DELETE',
                     headers: {
-                        [csrfHeaderName]: csrfToken
+                    [csrfHeaderName]: csrfToken
                     }
                     },
                 );
