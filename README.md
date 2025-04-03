@@ -10,6 +10,7 @@
 ###### You need Java 17+ and Gradle.
 ###### To build the project with gradle: ./gradlew clean build
 ###### To run the project with gradle: ./gradlew run
+###### To run the test with gradle: ./gradlew test
 ###### Additional info: use can access my page from http://localhost:8080/ only and then you will navigate through navbar.
 
 # Week 2
@@ -290,3 +291,7 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 # [Tickets page](http://localhost:8080/tickets)
 
 ## User has relationship to ticket entity.
+
+# Week 6
+## I added profile test for running tests
+

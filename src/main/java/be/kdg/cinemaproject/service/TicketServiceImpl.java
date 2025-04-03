@@ -98,6 +98,4 @@ public class TicketServiceImpl implements TicketService {
     public Ticket existsById(Long id) {
         return ticketRepository.findById(id).orElse(null);
     }
-
-
 }
