@@ -105,3 +105,14 @@ Content-Type: application/json
 }
 
 ###
+
+POST http://localhost:8080/api/visitors
+Accept: application/json
+Content-Type: application/json
+
+{
+  "name": "Lissaaaa",
+  "email": "lisaaaa@kdg.be",
+  "password": "test",
+  "role": "VISITOR"
+}

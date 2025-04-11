@@ -15,11 +15,11 @@
 <div th:insert="~{fragments :: navbar}"></div>
 
 <div class="container pb-5">
-    <h2 class="text-center mb-4 display-4 text-black" th:text="#{all.tickets.title}">All Tickets</h2>
+    <h2 class="text-center mb-4 display-4" style = "color: #598bf8;" th:text="#{all.tickets.title}">All Tickets</h2>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <div th:each="ticket : ${tickets.tickets()}" th:id="'ticket-' + ${ticket.id}" class="col">
-            <div class="card h-100 bg-black text-white border-white" style="border-radius: 15px;">
+            <div class="card h-100 text-white border-white" style="background-color: #A2BFFE; border-radius: 15px;">
                 <a th:href="@{/tickets/details/{id}(id=${ticket.id})}" class="d-block">
                     <img th:src="@{/images/{image}(image=${ticket.image})}" class="card-img-top img-fluid"
                          alt="Image of ticket for [[${ticket.format}]]" style="height: 220px; object-fit: cover;">
@@ -31,7 +31,7 @@
                         <p class="mb-1">Price: <strong>€[[${ticket.price}]]</strong></p>
                         <p class="mb-1">Showtime: [[${#temporals.format(ticket.showtime, 'yyyy-MM-dd HH:mm')}]]</p>
                         <p class="mb-1">Availability: <strong>[[${ticket.availability}]]</strong></p>
-                        <button th:if="${ticket.isModificationAllowed}" class="btn btn-outline-light mt-2 remove-ticket-button"
+                        <button th:if="${ticket.isModificationAllowed}" class="btn text-light fw-bold mt-2 remove-ticket-button" style = "background-color: #598bf8;"
                                 th:attr="data-ticket-id=${ticket.id}">
                             Remove
                         </button>

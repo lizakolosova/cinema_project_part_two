@@ -12,48 +12,42 @@
     <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
     <script src="/js/patch-ticket.js" type="module"></script>
 </head>
-<body>
-
+<body class="bg-light pb-4">
 <div th:insert="~{fragments :: navbar}"></div>
-
 <div class="container pb-5">
     <div th:if="${ticket != null}" class="mb-3">
-        <h1 class="display-4 text-center mb-4" th:text="#{ticket.details.title}">Ticket Details</h1>
-
-        <div class="card mb-4">
-            <div class="row g-0">
+        <h1 class="display-4 text-center mb-4" style="color: #598bf8;" th:text="#{ticket.details.title}">Ticket Details</h1>
+        <div class="card mb-4 shadow-lg border-0" style="background-color: #A2BFFE; border-radius: 15px; height: 100%;">
+            <div class="row g-0 h-100">
                 <div class="col-md-4">
-                    <img th:src="@{/images/{image}(image=${ticket.image()})}" class="card-img-top" alt="Ticket Image" style="object-fit: cover; height: 600px; width: 100%" >
+                    <img th:src="@{/images/{image}(image=${ticket.image()})}"
+                         class="img-fluid w-100 h-100 rounded-start"
+                         alt="Ticket Image"
+                         style="object-fit: cover; border-top-left-radius: 15px; border-bottom-left-radius: 15px;">
                 </div>
-                <div class="col-md-8">
+                <div class="col-md-8 d-flex flex-column justify-content-center">
                     <div class="card-body">
-                        <h5 class="card-title fs-3" th:text="#{ticket.movie}">Movie:</h5>
-                        <p class="card-text fs-5">
+                        <h5 class="card-title fs-3 fw-bold text-light text-uppercase" th:text="#{ticket.movie}" style="color: #ffffff;">Movie:</h5>
+                        <p class="card-text fs-5 text-white rounded px-3 py-2 shadow-sm">
                             <a th:href="@{/movies/details/{id}(id=${ticket.movieId()})}"  th:text="${ticket.movieTitle()}"
-                               class="text-black"></a>
+                               class="text-white"></a>
                         </p>
-                        <h5 class="card-title fs-3 text-black" th:text="#{ticket.cinema}">Cinema:</h5>
-                        <p class="card-text fs-5">
+                        <h5 class="card-title fs-3 fw-bold text-light text-uppercase" th:text="#{ticket.cinema}" style="color: #ffffff;">Cinema:</h5>
+                        <p class="card-text fs-5 text-white rounded px-3 py-2 shadow-sm">
                             <a th:href="@{/cinemas/details/{id}(id=${ticket.cinemaId()})}"  th:text="${ticket.cinemaName()}"
-                               class="text-black"></a>
+                               class="text-white"></a>
                         </p>
-
-                        <h5 class="card-title fs-3" th:text="#{ticket.showtime}">Showtime:</h5>
-                        <p class="card-text fs-5" th:text="${#temporals.format(ticket.showtime, 'MMMM dd, yyyy, hh:mm a')}"></p>
-
-                        <h5 class="card-title fs-3" th:text="#{ticket.format}">Format:</h5>
-                        <p class="card-text fs-5" th:text="${ticket.format}"></p>
-
-                        <h5 class="card-title fs-3" th:text="#{ticket.price}">Price:</h5>
-                        <p class="card-text fs-5" th:text="'€' + ${ticket.price}"></p>
-
-                        <h5 class="card-title fs-3" th:text="#{ticket.availability}">Availability:</h5>
-                        <p class="card-text fs-5">
-
+                        <h5 class="card-title fs-3 fw-bold text-light text-uppercase" th:text="#{ticket.showtime}" style="color: #ffffff;">Showtime:</h5>
+                        <p class="card-text fs-5 text-white rounded px-3 py-2 shadow-sm" th:text="${#temporals.format(ticket.showtime, 'MMMM dd, yyyy, hh:mm a')}"></p>
+                        <h5 class="card-title fs-3 fw-bold text-light text-uppercase" th:text="#{ticket.format}" style="color: #ffffff;">Format:</h5>
+                        <p class="card-text fs-5 text-white rounded px-3 py-2 shadow-sm" th:text="${ticket.format}"></p>
+                        <h5 class="card-title fs-3 fw-bold text-light text-uppercase" th:text="#{ticket.price}" style="color: #ffffff;">Price:</h5>
+                        <p class="card-text fs-5 text-white rounded px-3 py-2 shadow-sm" th:text="'€' + ${ticket.price}"></p>
+                        <h5 class="card-title fs-3 fw-bold text-light text-uppercase" th:text="#{ticket.availability}" style="color: #ffffff;">Availability:</h5>
+                        <p class="card-text fs-5 text-white rounded px-3 py-2 shadow-sm">
                             <span th:text="${ticket.availability}"></span>
                         </p>
-
-                        <button th:if="${ticket.isModificationAllowed}"  type="button" class="btn bg-black text-white mt-3" data-bs-toggle="modal" data-bs-target="#patch-ticket-modal">
+                        <button th:if="${ticket.isModificationAllowed}" style="background-color: #598bf8;" type="button" class="btn text-white mt-3" data-bs-toggle="modal" data-bs-target="#patch-ticket-modal">
                             Edit Ticket
                         </button>
                     </div>
@@ -61,48 +55,42 @@
             </div>
         </div>
     </div>
-
-    <div th:if="${ticket == null}" class="alert alert-danger text-center">
+    <div th:if="${ticket == null}" class="alert alert-info text-center w-100 mt-4">
         <p th:text="#{ticket.not.found}">Ticket not found.</p>
     </div>
 </div>
-
 <div class="modal fade" id="patch-ticket-modal" tabindex="-1" aria-labelledby="editTicketModalLabel" aria-hidden="true" th:attr="data-ticket-id=${ticket.id}">
     <div class="modal-dialog">
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="editTicketModalLabel">Edit Ticket</h5>
+            <div class="modal-header" style="background-color: #A2BFFE;">
+                <h5 class="modal-title text-light" id="editTicketModalLabel">Edit Ticket</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="background-color: #A2BFFE;">
                 <form id="edit-ticket-form">
                     <div class="mb-3">
-                        <label for="edit-price" class="form-label" th:text="#{ticket.price}">Price:</label>
+                        <label for="edit-price" class="form-label text-light" th:text="#{ticket.price}">Price:</label>
                         <input th:if="${ticket.isModificationAllowed}" type="number" step="0.01" id="edit-price" name="price" class="form-control"/>
                     </div>
-
                     <div class="mb-3">
-                        <label for="edit-showtime" class="form-label" th:text="#{ticket.showTime}">Show Time:</label>
+                        <label for="edit-showtime" class="form-label text-light" th:text="#{ticket.showTime}">Show Time:</label>
                         <input th:if="${ticket.isModificationAllowed}" type="datetime-local" id="edit-showtime" name="showtime" class="form-control"/>
                     </div>
                     <div class="mb-3">
-                        <label for="edit-availability" class="form-label" th:text="#{ticket.availability}">Availability:</label>
+                        <label for="edit-availability" class="form-label text-light" th:text="#{ticket.availability}">Availability:</label>
                         <select th:if="${ticket.isModificationAllowed}" id="edit-availability" name="availability" class="form-control" required>
                             <option value="AVAILABLE" th:text="#{ticket.availability.available}">AVAILABLE</option>
                             <option value="RESERVED" th:text="#{ticket.availability.reserved}">RESERVED</option>
                             <option value="SOLD" th:text="#{ticket.availability.sold}">SOLD</option>
                         </select>
                     </div>
-
-                    <button type="submit" class="btn bg-black text-white">Save</button>
+                    <button type="submit" style="background-color: #598bf8;" class="btn text-white">Save</button>
                 </form>
             </div>
         </div>
     </div>
 </div>
-
 <div th:insert="~{fragments :: footer}"></div>
 <script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
-

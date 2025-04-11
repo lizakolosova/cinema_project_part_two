@@ -1,4 +1,4 @@
-package be.kdg.cinemaproject.security;
+package be.kdg.cinemaproject.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

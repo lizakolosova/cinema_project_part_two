@@ -1,4 +1,4 @@
-package be.kdg.cinemaproject.webapi.dto;
+package be.kdg.cinemaproject.webapi.dto.ticket;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

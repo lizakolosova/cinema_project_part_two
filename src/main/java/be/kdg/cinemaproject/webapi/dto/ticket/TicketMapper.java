@@ -1,4 +1,4 @@
-package be.kdg.cinemaproject.webapi.dto;
+package be.kdg.cinemaproject.webapi.dto.ticket;
 
 import be.kdg.cinemaproject.domain.Ticket;
 import org.mapstruct.Mapper;

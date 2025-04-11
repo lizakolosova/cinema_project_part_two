@@ -1,4 +1,4 @@
-package be.kdg.cinemaproject.webapi.dto;
+package be.kdg.cinemaproject.webapi.dto.movie;
 
 import be.kdg.cinemaproject.domain.Movie;
 

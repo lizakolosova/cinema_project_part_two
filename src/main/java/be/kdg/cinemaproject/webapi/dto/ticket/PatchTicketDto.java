@@ -1,10 +1,9 @@
-package be.kdg.cinemaproject.webapi.dto;
+package be.kdg.cinemaproject.webapi.dto.ticket;
 
 import be.kdg.cinemaproject.domain.Availability;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.FutureOrPresent;
-import jakarta.validation.constraints.Size;
 
 import java.time.LocalDateTime;
 

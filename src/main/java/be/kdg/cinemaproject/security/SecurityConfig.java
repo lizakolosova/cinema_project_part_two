@@ -6,7 +6,6 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
@@ -19,8 +18,13 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain securityFilterChain(final HttpSecurity security) throws Exception {
         return security
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers("/api/visitors")
+                )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/home").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/visitors").permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.GET, "/cinemas"),
                                 antMatcher(HttpMethod.GET, "/movies"),

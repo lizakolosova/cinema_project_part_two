@@ -11,15 +11,15 @@
 <body class="pb-4">
 <div th:insert="~{fragments :: navbar}"></div>
 <div class="text-center mb-4">
-    <h2 class="display-4 text-black" th:text="#{movie.search.heading}">Movie Search</h2>
-    <p class="lead text-secondary" th:text="#{movie.search.subtitle}">Find your favorite movies by title!</p>
+    <h2 class="display-4" style = "color: #598bf8;" th:text="#{movie.search.heading}">Movie Search</h2>
+    <p class="lead text-secondary" style = "color: #598bf8;" th:text="#{movie.search.subtitle}">Find your favorite movies by title!</p>
 
 </div>
 <div class="row justify-content-center mb-4">
     <div class="col-md-6">
         <div class="input-group">
-            <span class="input-group-text bg-black text-white"><i class="bi bi-search"></i></span>
-            <input type="text" id="search" class="form-control border-black" th:placeholder="#{search.placeholder}">
+            <span class="input-group-text text-white" style = "background-color: #598bf8;"><i class="bi bi-search"></i></span>
+            <input type="text" id="search" class="form-control"  style="border: 2px solid #598bf8;"  th:placeholder="#{search.placeholder}">
         </div>
     </div>
 </div>

@@ -16,18 +16,18 @@
 <div th:insert="~{fragments :: navbar}"></div>
 
 <div class="container pb-5">
-    <h2 class="text-center mb-4 display-4 text-black" th:text="#{all.movies.title}">All Movies</h2>
+    <h2 class="text-center mb-4 display-4" style = "color: #598bf8;" th:text="#{all.movies.title}">All Movies</h2>
 
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4">
         <div th:each="movie : ${movies.movies()}" th:id="'movie-' + ${movie.id}" class="col">
-            <div class="card h-100 bg-black text-white border-white" style="max-height: 400px; border-radius: 15px;">
+            <div class="card h-100 text-white border-white" style="max-height: 400px; background-color: #A2BFFE; border-radius: 15px;">
                 <a th:href="@{/movies/details/{id}(id=${movie.id})}" class="d-block">
                     <img th:src="@{/images/{image}(image=${movie.image})}" class="card-img-top img-fluid"
                          alt="Image of [[${movie.title}]]" style="height: 250px; object-fit: cover;">
                 </a>
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-center" th:text="${movie.title}">Movie Title</h5>
-                    <button th:if="${#authorization.expression('hasAnyRole(''ADMINISTRATOR'')')}" class="btn btn-outline-light mt-2 remove-movie-button"
+                    <button th:if="${#authorization.expression('hasAnyRole(''ADMINISTRATOR'')')}" style = "background-color: #598bf8;" class="btn text-light mt-2 remove-movie-button"
                             th:attr="data-movie-id=${movie.id}">
                         Remove
                     </button>
@@ -36,21 +36,21 @@
         </div>
     </div>
 
-    <h3 class="mt-5 text-center" th:text="#{filter.title}">Filter Movies</h3>
+    <h3 class="mt-5 text-center" style = "color: #598bf8;" th:text="#{filter.title}">Filter Movies</h3>
 
-    <div class="card mx-auto p-4 shadow-lg bg-black text-white border-white" style="max-width: 400px; border-radius: 12px;">
+    <div class="card mx-auto p-4 shadow-lg text-black" style="max-width: 400px; border-radius: 12px; background-color: #A2BFFE;">
         <form th:action="@{/movies/filter}" method="post">
             <div class="mb-3">
-                <label for="genre" class="form-label fw-bold" th:text="#{filter.label.genre}">Genre:</label>
+                <label for="genre" class="form-label fw-bold text-light" th:text="#{filter.label.genre}">Genre:</label>
                 <input type="text" id="genre" name="genre" placeholder="Enter genre (optional)"
-                       class="form-control bg-black text-white border-white">
+                       class="form-control bg-light text-black">
             </div>
             <div class="mb-3">
-                <label for="rating" class="form-label fw-bold" th:text="#{filter.label.rating}">Rating:</label>
+                <label for="rating" class="form-label fw-bold text-light" th:text="#{filter.label.rating}">Rating:</label>
                 <input type="number" step="0.1" id="rating" name="rating" placeholder="Enter rating (optional)"
-                       class="form-control bg-black text-white border-white">
+                       class="form-control bg-light text-black">
             </div>
-            <button type="submit" class="btn btn-outline-light w-100 py-2">
+            <button type="submit" class="btn w-100 py-2 text-light fw-bold" style = "background-color: #598bf8;">
                 <i class="fas fa-filter"></i> <span th:text="#{filter.button1}">Filter</span>
             </button>
         </form>
