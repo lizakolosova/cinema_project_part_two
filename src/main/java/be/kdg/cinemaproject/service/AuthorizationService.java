@@ -22,7 +22,7 @@ public class AuthorizationService {
     public boolean canModifyTicket(final CustomUserDetails user, final Long ticketId) {
         return canModifyTicket(
                 user,
-                ticketRepository.findByIdWithVisitor(ticketId).orElseThrow(() -> new TicketNotFoundException("Ticket not found"))
+                ticketRepository.findById(ticketId).orElseThrow(() -> new TicketNotFoundException("Ticket not found"))
         );
     }
 

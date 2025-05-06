@@ -36,7 +36,7 @@ public class CinemaController {
         logger.info("Fetching all cinemas");
         List<Cinema> cinemas = cinemaService.getAllCinemas();
         logger.debug("Number of cinemas fetched: {}", cinemas.size());
-        model.addAttribute("cinemas", cinemas);  //TO DO: make this controller method should addAttribute with View model
+        model.addAttribute("cinemas", cinemas);  //TO DO: make this controller method addAttribute with View model
         return "cinema/cinemas";
     }
 

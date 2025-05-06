@@ -11,6 +11,8 @@
 ###### To build the project with gradle: ./gradlew clean build
 ###### To run the project with gradle: ./gradlew run
 ###### To run the test with gradle: ./gradlew test
+###### To run the test with gradle and profile test on Windows: ./gradlew test "-Dspring.profiles.active=test"( ./gradlew test -Dspring.profiles.active=test)
+###### I assume you can run the test without quotes("") but for Windows (or just me) it didn't work.
 ###### Additional info: use can access my page from http://localhost:8080/ only and then you will navigate through navbar.
 
 # Week 2
@@ -258,21 +260,6 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 # Week 4
 ## Users that I added:
 ### User 1:
-##### username: liza.kolosova@student.kdg.be 
-##### password: student
-### User 2:
-##### username: raoul@kdg.be
-##### password: test
-
-## A page that can be accessed by anyone:
-[Cinemas page](http://localhost:8080/cinemas)
-## A hyperlink to a page that requires authentication to be accessible:
-[Add Cinema page](http://localhost:8080/cinemas/addcinema)
-
-# Week 5
-## Users are the same: 
-
-### User 1:
 ##### username: liza.kolosova@student.kdg.be
 ##### password: student
 ##### role: administrator
@@ -280,6 +267,14 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ##### username: raoul@kdg.be
 ##### password: test
 ##### role: visitor
+
+## A page that can be accessed by anyone:
+[Cinemas page](http://localhost:8080/cinemas)
+## A hyperlink to a page that requires authentication to be accessible:
+[Add Cinema page](http://localhost:8080/cinemas/addcinema)
+
+# Week 5
+## Users are the same.
 
 ##### So, unauthenticated user can access pages with all cinemas, movies, tickets and homepage
 ##### Visitor can update ticket and delete it if they are the owner of that ticket
@@ -294,4 +289,20 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 
 # Week 6
 ## I added profile test for running tests
+
+# Week 8
+## The names of the classes containing
+### MVC integration tests:
+##### Movie Controller
+### API integration tests:
+##### CinemaApiController
+##### TicketApiController
+##### MovieApiController
+### Role verification tests
+##### CinemaApiController
+##### TicketApiController
+# Test coverage:
+![Code Coverage](src/main/resources/static/images/test-coverage.png)
+![Code Coverage](src/main/resources/static/images/movie-controller-test-coverage.png)
+##### Movie controller on the second picture is MVC
 

@@ -27,23 +27,14 @@ public class MovieApiController {
                 .stream()
                 .map(MovieDto::fromMovie)
                 .toList();
-        if (movies.isEmpty()) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.ok(movies);
-        }
+        return ResponseEntity.ok(movies);
     }
 
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
     public ResponseEntity<Void> remove(@PathVariable("id") final Long id) {
-        try {
-                movieService.deleteById(id);
-                return ResponseEntity.noContent().build();
-        } catch (
-                TicketNotFoundException e) {
-            return ResponseEntity.notFound().build();
-        }
+        movieService.deleteById(id);
+        return ResponseEntity.noContent().build();
     }
  }
 

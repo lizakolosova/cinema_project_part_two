@@ -21,10 +21,4 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
     @Query("SELECT t FROM Ticket t JOIN FETCH t.visitor WHERE t.id = :id")
     Optional<Ticket> findByIdWithVisitor(@Param("id") Long id);
-
-    @Query("SELECT COUNT(t) > 0 FROM Ticket t WHERE t.movie.id = :movieId AND t.visitor.id = :visitorId")
-    boolean isVisitorAssignedToMovie(@Param("movieId") Long movieId, @Param("visitorId") Long visitorId);
-
-    @Query("SELECT COUNT(t) > 0 FROM Ticket t WHERE t.cinema.id = :cinemaId AND t.visitor.id = :visitorId")
-    boolean isVisitorAssignedToCinema(@Param("cinemaId") Long cinemaId, @Param("visitorId") Long visitorId);
 }

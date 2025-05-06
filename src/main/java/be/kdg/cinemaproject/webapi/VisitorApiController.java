@@ -28,10 +28,7 @@ public class VisitorApiController {
     }
 
     @PostMapping()
-    public ResponseEntity<VisitorDto> add(@RequestBody @Valid final AddVisitorDto addVisitorDto, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Invalid visitor data");
-        }
+    public ResponseEntity<VisitorDto> add(@RequestBody @Valid final AddVisitorDto addVisitorDto) {
         final Visitor visitor = visitorService.add(addVisitorDto.name(), addVisitorDto.email(), addVisitorDto.password(), addVisitorDto.role());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(visitorMapper.toVisitorDto(visitor));

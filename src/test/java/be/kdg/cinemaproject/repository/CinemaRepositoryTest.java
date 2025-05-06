@@ -1,5 +1,6 @@
 package be.kdg.cinemaproject.repository;
 
+import be.kdg.cinemaproject.TestHelper;
 import be.kdg.cinemaproject.domain.Cinema;
 import be.kdg.cinemaproject.domain.Ticket;
 import org.hibernate.LazyInitializationException;
@@ -22,15 +23,16 @@ class CinemaRepositoryTest {
     private CinemaRepository sut;
     @Autowired
     private TicketRepository ticketRepository;
+    @Autowired
+    private TestHelper testHelper;
 
     @AfterEach
     void tearDown() {
-        ticketRepository.deleteAll();
-        sut.deleteAll();
+        testHelper.cleanUp();
     }
 
     @Test
-    void ShouldDeleteCinemaWithoutReferenceToTicket() {
+    void ShouldDeleteCinemaWithoutTicket() {
         // Arrange
         Cinema cinema = new Cinema();
         cinema.setName("Test Cinema");
@@ -45,7 +47,7 @@ class CinemaRepositoryTest {
     }
 
     @Test
-    void ShouldNotAllowDeleteCinemaWithReferenceToTicket() {
+    void ShouldNotAllowDeleteCinemaWithTicket() {
         // Arrange
         Cinema cinema = new Cinema();
         cinema.setName("Test Cinema");
@@ -105,7 +107,7 @@ class CinemaRepositoryTest {
     }
 
     @Test
-    void ShouldLoadTicketsLazily() {
+    void ShouldNotAllowToGetTickets() {
         // Arrange
         Cinema cinema = new Cinema();
         cinema.setName("Lazy Loaded Cinema");

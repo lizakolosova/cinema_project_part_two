@@ -27,6 +27,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/home").permitAll()
                         .requestMatchers(HttpMethod.GET, "/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/visitors").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/movies").permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.GET, "/cinemas"),
                                 antMatcher(HttpMethod.GET, "/movies"),

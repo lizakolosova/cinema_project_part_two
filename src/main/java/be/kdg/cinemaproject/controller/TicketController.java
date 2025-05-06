@@ -61,7 +61,6 @@ public class TicketController {
     }
 
     @GetMapping("/add")
-    @PreAuthorize("hasRole('ADMINISTRATOR')")
     public ModelAndView add() {
         final ModelAndView modelAndView = new ModelAndView("ticket/addticket");
         modelAndView.addObject("movies", MoviesViewModel.from(movieService.getAllMovies()));

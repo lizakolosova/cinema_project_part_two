@@ -1,12 +1,12 @@
 package be.kdg.cinemaproject.service;
 
+import be.kdg.cinemaproject.TestHelper;
 import be.kdg.cinemaproject.domain.*;
 import be.kdg.cinemaproject.domain.exception.CinemaNotFoundException;
 import be.kdg.cinemaproject.domain.exception.MovieNotFoundException;
 import be.kdg.cinemaproject.domain.exception.TicketNotFoundException;
 import be.kdg.cinemaproject.repository.CinemaRepository;
 import be.kdg.cinemaproject.repository.MovieRepository;
-import be.kdg.cinemaproject.repository.TicketRepository;
 import be.kdg.cinemaproject.repository.VisitorRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -32,14 +32,11 @@ class TicketServiceImplTest {
     @Autowired
     private VisitorRepository visitorRepository;
     @Autowired
-    private TicketRepository ticketRepository;
+    private TestHelper testHelper;
 
     @AfterEach
     void tearDown() {
-        ticketRepository.deleteAll();
-        movieRepository.deleteAll();
-        cinemaRepository.deleteAll();
-        visitorRepository.deleteAll();
+        testHelper.cleanUp();
     }
 
     @Test
