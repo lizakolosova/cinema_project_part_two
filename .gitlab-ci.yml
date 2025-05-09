@@ -21,7 +21,8 @@ test:
     POSTGRES_DB: 'cinema-test'
     POSTGRES_USER: 'spring'
     POSTGRES_PASSWORD: 'spring'
-    CI_DB_HOST_PORT: 'postgres:5432'
+    DB_HOST: 'postgres'
+    DB_PORT: '5432'
   artifacts:
     when: always
     reports:
