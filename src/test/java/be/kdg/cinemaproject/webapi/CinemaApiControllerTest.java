@@ -3,7 +3,6 @@ package be.kdg.cinemaproject.webapi;
 import be.kdg.cinemaproject.TestHelper;
 import be.kdg.cinemaproject.domain.Cinema;
 import be.kdg.cinemaproject.domain.Movie;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +39,7 @@ class CinemaApiControllerTest {
     void tearDown() {
         testHelper.cleanUp();
         testHelper.createAdmin();
-        testHelper.createVisitorWithTicket();
+        testHelper.createVisitor();
     }
 
     @Test
@@ -54,6 +53,7 @@ class CinemaApiControllerTest {
         final var request = post("/api/cinemas/" + cinema.getId() + "/tickets")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content(String.format("""
                 {
                  "price": 11,
@@ -69,7 +69,7 @@ class CinemaApiControllerTest {
         final var response = mockMvc.perform(request);
 
         // Assert
-        final String jsonResponse = response.andDo(print())
+        response.andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(jsonPath("$.price").value(11))
                 .andExpect(jsonPath("$.format").value("3D"))
@@ -78,7 +78,7 @@ class CinemaApiControllerTest {
                 .andReturn()
                 .getResponse()
                 .getContentAsString();
-        assertEquals(2, (long) testHelper.findTickets().size());
+        assertEquals(1, (long) testHelper.findTickets().size());
     }
 
     @Test
@@ -92,9 +92,9 @@ class CinemaApiControllerTest {
         final var request = post("/api/cinemas/" + cinema.getId() + "/tickets")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content(String.format("""
                 {
-                 "price": ,
                  "showtime": "%s",
                  "format": "3D",
                  "image": "image.jpg",
@@ -109,6 +109,6 @@ class CinemaApiControllerTest {
         // Assert
         response.andDo(print())
                 .andExpect(status().isBadRequest());
-        assertEquals(1, (long) testHelper.findTickets().size());
+        assertEquals(0, (long) testHelper.findTickets().size());
     }
 }

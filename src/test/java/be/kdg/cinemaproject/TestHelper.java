@@ -6,6 +6,7 @@ import be.kdg.cinemaproject.repository.MovieRepository;
 import be.kdg.cinemaproject.repository.TicketRepository;
 import be.kdg.cinemaproject.repository.VisitorRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.constraints.Email;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -41,20 +42,26 @@ public class TestHelper {
         return ticketRepository.findAll();
     }
 
-    @Transactional
-    public Visitor createVisitorWithTicket(){
+
+    public Visitor createVisitor(){
         final Visitor visitor = new Visitor();
         visitor.setEmail(VISITOR_EMAIL);
         visitor.setRole(Role.VISITOR);
         visitor.setPassword(passwordEncoder.encode("test"));
         visitorRepository.save(visitor);
+        return visitor;
+    }
+
+    @Transactional
+    public Ticket addTicketToVisitor(String email) {
         final Ticket ticket = new Ticket();
         ticket.setFormat("3D");
         ticket.setPrice(11);
         ticketRepository.save(ticket);
-        ticket.setVisitor(visitor);
-        return visitor;
+        ticket.setVisitor(visitorRepository.getVisitorsByEmail(email));
+        return ticket;
     }
+
 
     public Visitor createAdmin(){
         final Visitor visitor = new Visitor();

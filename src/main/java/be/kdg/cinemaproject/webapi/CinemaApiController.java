@@ -12,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -38,7 +39,10 @@ public class CinemaApiController {
     @PostMapping("/{id}/tickets")
     public ResponseEntity<TicketDto> add(@PathVariable Long id,
                                          @RequestBody @Valid final AddTicketDto addTicketDto,
-                                         @AuthenticationPrincipal final CustomUserDetails userDetails) {
+                                         @AuthenticationPrincipal final CustomUserDetails userDetails, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         final Ticket ticket = ticketService.add(addTicketDto.price(), addTicketDto.showtime(), addTicketDto.format(), addTicketDto.availability(), addTicketDto.image(), addTicketDto.movieId(), id, userDetails.getVisitorId());
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(ticketMapper.toTicketDto(ticket));

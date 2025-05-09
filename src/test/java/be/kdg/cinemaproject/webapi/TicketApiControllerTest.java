@@ -37,7 +37,7 @@ class TicketApiControllerTest {
     void cleanUp() {
         testHelper.cleanUp();
         testHelper.createAdmin();
-        testHelper.createVisitorWithTicket();
+        testHelper.createVisitor();
     }
 
     @Test
@@ -45,7 +45,7 @@ class TicketApiControllerTest {
     void shouldDeleteTicket() throws Exception {
 
         // Arrange
-        Long ticketId = testHelper.findTickets().getFirst().getId();
+        Long ticketId = testHelper.addTicketToVisitor(VISITOR_EMAIL).getId();
         final var request = delete("/api/tickets/{id}", ticketId)
                 .with(csrf());
 
@@ -71,7 +71,7 @@ class TicketApiControllerTest {
 
         // Assert
         response.andExpect(status().isNotFound());
-        assertEquals(1, (long) testHelper.findTickets().size());
+        assertEquals(0, (long) testHelper.findTickets().size());
     }
 
     @Test
@@ -89,20 +89,21 @@ class TicketApiControllerTest {
 
         // Assert
         response.andExpect(status().isForbidden());
-        assertEquals(2, (long) testHelper.findTickets().size());
+        assertEquals(1, (long) testHelper.findTickets().size());
 
     }
 
 
     @Test
     @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldPatchTicket() throws Exception {
+    void shouldPatchTicketAsAdmin() throws Exception {
 
         // Arrange
-        Long ticketId = testHelper.findTickets().getFirst().getId();
+        Long ticketId = testHelper.createTicket().getId();
         final var request =patch("/api/tickets/{id}", ticketId)
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content("""
                 {
                  "price": 11,
@@ -125,13 +126,44 @@ class TicketApiControllerTest {
 
     @Test
     @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldNotPatchTicket() throws Exception {
+    void shouldPatchTicketAsVisitor() throws Exception {
 
         // Arrange
-        Long ticketId = testHelper.findTickets().getFirst().getId();
+        Long ticketId = testHelper.addTicketToVisitor(VISITOR_EMAIL).getId();
         final var request =patch("/api/tickets/{id}", ticketId)
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content("""
+                {
+                 "price": 11,
+                 "availability": "AVAILABLE"
+                 }""");
+
+        // Act
+        final var response = mockMvc.perform(request);
+
+        // Assert
+        response.andDo(print())
+                .andExpect(status().isNoContent())
+                .andExpect(jsonPath("$.price").value(11))
+                .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.availability").value("AVAILABLE"))
+                .andReturn()
+                .getResponse()
+                .getContentAsString();
+    }
+
+    @Test
+    @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void shouldNotPatchTicketAsNotRelatedVisitor() throws Exception {
+
+        // Arrange
+        Long ticketId = testHelper.createTicket().getId();
+        final var request =patch("/api/tickets/{id}", ticketId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
                 .content("""
                 {
                  "price": 16,

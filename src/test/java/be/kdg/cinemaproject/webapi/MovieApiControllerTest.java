@@ -38,8 +38,6 @@ class MovieApiControllerTest {
     @BeforeEach
     void tearDown() {
         testHelper.cleanUp();
-        testHelper.createAdmin();
-        testHelper.createVisitorWithTicket();
     }
 
     @Test

@@ -248,7 +248,7 @@ class TicketServiceImplTest {
     }
 
     @Test
-    void shouldNotPatchTicket() {
+    void shouldNotPatchNonExistingTicket() {
         // Arrange
         long nonExistentTicketId = 999L;
 
