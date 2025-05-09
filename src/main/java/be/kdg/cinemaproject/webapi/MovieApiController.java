@@ -1,6 +1,5 @@
 package be.kdg.cinemaproject.webapi;
 
-import be.kdg.cinemaproject.domain.exception.TicketNotFoundException;
 import be.kdg.cinemaproject.service.MovieService;
 import be.kdg.cinemaproject.webapi.dto.movie.MovieDto;
 import org.springframework.http.ResponseEntity;

@@ -9,9 +9,7 @@ import be.kdg.cinemaproject.service.AuthorizationService;
 import be.kdg.cinemaproject.service.CinemaService;
 import be.kdg.cinemaproject.service.MovieService;
 import be.kdg.cinemaproject.service.TicketService;
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -37,8 +35,7 @@ public class TicketController {
     }
 
     @GetMapping()
-    public ModelAndView getAll(@AuthenticationPrincipal final CustomUserDetails userDetails,
-                               HttpServletRequest request) {
+    public ModelAndView getAll(@AuthenticationPrincipal final CustomUserDetails userDetails) {
         final ModelAndView modelAndView = new ModelAndView("ticket/tickets");
         modelAndView.addObject(
                 "tickets",

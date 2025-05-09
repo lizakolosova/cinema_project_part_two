@@ -1,5 +1,6 @@
 package be.kdg.cinemaproject.controller.viewmodel;
 import be.kdg.cinemaproject.domain.Genre;
+import be.kdg.cinemaproject.domain.Movie;
 import jakarta.validation.constraints.DecimalMax;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.NotBlank;
@@ -33,4 +34,15 @@ public class MovieViewModelForForm {
     public String toString() {
         return title + " (" + genre + ") - " + releaseDate + " - Rating: " + rating;
     }
+
+    public Movie toMovie() {
+        Movie movie = new Movie();
+        movie.setTitle(this.title);
+        movie.setReleaseDate(this.releaseDate);
+        movie.setGenre(this.genre);
+        movie.setRating(this.rating);
+        movie.setImage(this.image);
+        return movie;
+    }
+
 }

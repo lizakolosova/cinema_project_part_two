@@ -1,8 +1,9 @@
 package be.kdg.cinemaproject.controller;
 
+import be.kdg.cinemaproject.controller.viewmodel.CinemaWithScreensViewModel;
+import be.kdg.cinemaproject.controller.viewmodel.CinemasViewModel;
 import be.kdg.cinemaproject.domain.Cinema;
 import be.kdg.cinemaproject.domain.exception.CinemaNotFoundException;
-import be.kdg.cinemaproject.controller.converter.CinemaViewModelToCinemaConverter;
 import be.kdg.cinemaproject.controller.viewmodel.CinemaViewModelForForm;
 import be.kdg.cinemaproject.service.CinemaService;
 import jakarta.validation.Valid;
@@ -13,8 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("cinemas")
@@ -23,30 +23,25 @@ public class CinemaController {
     private static final Logger logger = LoggerFactory.getLogger(CinemaController.class);
 
     private final CinemaService cinemaService;
-    private final CinemaViewModelToCinemaConverter converter;
 
-    public CinemaController(CinemaService cinemaService, CinemaViewModelToCinemaConverter converter) {
+    public CinemaController(CinemaService cinemaService) {
         this.cinemaService = cinemaService;
-        this.converter = converter;
-
     }
 
     @GetMapping()
-    public String getAllCinemas(Model model) {
+    public ModelAndView getAllCinemas() {
+        ModelAndView modelAndView = new ModelAndView("cinema/cinemas");
         logger.info("Fetching all cinemas");
-        List<Cinema> cinemas = cinemaService.getAllCinemas();
-        logger.debug("Number of cinemas fetched: {}", cinemas.size());
-        model.addAttribute("cinemas", cinemas);  //TO DO: make this controller method addAttribute with View model
-        return "cinema/cinemas";
+        modelAndView.addObject("cinemas", CinemasViewModel.from(cinemaService.getAllCinemas()));
+        return modelAndView;
     }
 
     @PostMapping("/filter")
-    public String getCinemasByCapacity(@RequestParam("minCapacity") int minCapacity, Model model) {
+    public ModelAndView getCinemasByCapacity(@RequestParam("minCapacity") int minCapacity) {
+        ModelAndView modelAndView = new ModelAndView("cinema/cinemas");
         logger.info("Filtering cinemas by minimum capacity: {}", minCapacity);
-        List<Cinema> filteredCinemas = cinemaService.getCinemasByCapacity(minCapacity);
-        logger.debug("Number of cinemas after filtering: {}", filteredCinemas.size());
-        model.addAttribute("cinemas", filteredCinemas);  //TO DO: make this controller method should addAttribute with View model
-        return "cinema/cinemas";
+        modelAndView.addObject("cinemas", CinemasViewModel.from(cinemaService.getCinemasByCapacity(minCapacity)));
+        return modelAndView;
     }
 
     @GetMapping("/addcinema")
@@ -57,34 +52,36 @@ public class CinemaController {
 
     @PostMapping("/addcinema")
     @PreAuthorize("hasRole('ADMINISTRATOR')")
-    public String addCinema(
+    public ModelAndView addCinema(
             @Valid @ModelAttribute("cinemaViewModel") CinemaViewModelForForm cinemaViewModel,
-            BindingResult bindingResult,
-            Model model
-    ) {
+            BindingResult bindingResult)
+    {
         if (bindingResult.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("cinema/addcinema");
             logger.warn("Form submission contains validation errors: {}", bindingResult.getAllErrors());
-            model.addAttribute("cinemaViewModel", cinemaViewModel);
-            return "cinema/addcinema";
+            modelAndView.addObject("cinemaViewModel", cinemaViewModel);
+            return modelAndView;
         }
+        ModelAndView modelAndView = new ModelAndView("redirect:/cinemas");
         logger.info("Processing cinema addition request: {}", cinemaViewModel.getName());
 
-        Cinema cinema = converter.convert(cinemaViewModel);
+        Cinema cinema = cinemaViewModel.toCinema();
         cinemaService.saveCinema(cinema);
-        return "redirect:/cinemas";
+        return modelAndView;
     }
     @GetMapping("/details/{id}")
-    public String viewCinemaDetails(@PathVariable Long id, Model model) {
+    public ModelAndView viewCinemaDetails(@PathVariable Long id) {
         try {
-            Cinema cinema = cinemaService.findByIdWithMovies(id);
-            model.addAttribute("cinema", cinema);  //TO DO: make this controller method should addAttribute with View model
-            return "cinema/cinema-details";
+            ModelAndView modelAndView = new ModelAndView("cinema/cinema-details");
+            modelAndView.addObject("cinema", CinemaWithScreensViewModel.from(cinemaService.findByIdWithMovies(id)));
+            return modelAndView;
         } catch (CinemaNotFoundException ex) {
+            ModelAndView modelAndView = new ModelAndView( "error/other-error");
             logger.error("Cinema not found with id: {}", id);
-            model.addAttribute("message", ex.getMessage());
-            model.addAttribute("condition", ex.getCondition());
-            model.addAttribute("time",  ex.getTime());
-            return "error/other-error";
+            modelAndView.addObject("message", ex.getMessage());
+            modelAndView.addObject("condition", ex.getCondition());
+            modelAndView.addObject("time",  ex.getTime());
+            return modelAndView;
         }
     }
 }

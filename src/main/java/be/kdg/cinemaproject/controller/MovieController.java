@@ -1,15 +1,14 @@
 package be.kdg.cinemaproject.controller;
 import be.kdg.cinemaproject.controller.viewmodel.MovieViewModelForForm;
+import be.kdg.cinemaproject.controller.viewmodel.MovieWithCinemasAndTicketsViewModel;
 import be.kdg.cinemaproject.controller.viewmodel.MoviesViewModel;
 import be.kdg.cinemaproject.domain.Movie;
 import be.kdg.cinemaproject.domain.exception.MovieNotFoundException;
-import be.kdg.cinemaproject.controller.converter.MovieViewModelToMovieConverter;
 import be.kdg.cinemaproject.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -22,11 +21,9 @@ import java.util.List;
 public class MovieController {
 
     private final MovieService movieService;
-    private final MovieViewModelToMovieConverter converter;
 
-    public MovieController(MovieService movieService, MovieViewModelToMovieConverter converter) {
+    public MovieController(MovieService movieService) {
         this.movieService = movieService;
-        this.converter = converter;
     }
 
     @GetMapping()
@@ -38,8 +35,7 @@ public class MovieController {
 
     @PostMapping("/filter")
     public ModelAndView getFilteredMovies(@RequestParam(value = "genre", required = false) String genreInput,
-                                    @RequestParam(value = "rating", required = false) Double rating,
-                                    Model model) {
+                                    @RequestParam(value = "rating", required = false) Double rating) {
         final ModelAndView modelAndView = new ModelAndView("movie/movies");
         List<Movie> movies = movieService.getFilteredMovies(genreInput, rating);
         modelAndView.addObject("movies", MoviesViewModel.from(movies));
@@ -65,7 +61,7 @@ public class MovieController {
             return modelAndView;
         }
         final ModelAndView modelAndView = new ModelAndView("redirect:/movies");
-        Movie movie = converter.convert(movieViewModel);
+        Movie movie = movieViewModel.toMovie();
             movieService.addMovie(movie);
         return modelAndView;
     }
@@ -74,7 +70,7 @@ public class MovieController {
     public ModelAndView viewMovieDetails(@PathVariable Long id) {
         try {
             final ModelAndView modelAndView = new ModelAndView("movie/movie-details");
-            modelAndView.addObject("movie", movieService.findByIdWithCinemas(id));
+            modelAndView.addObject("movie", MovieWithCinemasAndTicketsViewModel.from(movieService.findByIdWithCinemas(id)));
             return modelAndView;
         } catch (MovieNotFoundException ex) {
             final ModelAndView modelAndView = new ModelAndView("error/other-error");
