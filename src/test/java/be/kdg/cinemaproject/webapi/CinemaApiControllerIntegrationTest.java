@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 @SpringBootTest
 @AutoConfigureMockMvc
-class CinemaApiControllerTest {
+class CinemaApiControllerIntegrationTest {
 
     @Autowired
     private TestHelper testHelper;

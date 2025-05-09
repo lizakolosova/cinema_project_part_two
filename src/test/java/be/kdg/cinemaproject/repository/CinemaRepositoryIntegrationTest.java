@@ -18,7 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class CinemaRepositoryTest {
+class CinemaRepositoryIntegrationTest {
     @Autowired
     private CinemaRepository sut;
     @Autowired

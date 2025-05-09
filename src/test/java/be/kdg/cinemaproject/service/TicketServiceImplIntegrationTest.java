@@ -22,7 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ActiveProfiles("test")
-class TicketServiceImplTest {
+class TicketServiceImplIntegrationTest {
     @Autowired
     private TicketServiceImpl sut;
     @Autowired
