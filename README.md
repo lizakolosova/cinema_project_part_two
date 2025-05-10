@@ -315,3 +315,5 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ##### TicketApiControllerTest
 ##### TicketServiceImplTest
 
+# [Markdown hyperlink to a test report of a recent successful pipeline.](https://gitlab.com/kdg-ti/programming-5/projects-24-25/acs201/liza.kolosova/spring-backend/-/jobs/9995803903)
+
