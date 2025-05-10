@@ -293,16 +293,25 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 # Week 8
 ## The names of the classes containing
 ### MVC integration tests:
-##### Movie Controller
+##### MovieControllerIntegrationTest
 ### API integration tests:
-##### CinemaApiController
-##### TicketApiController
-##### MovieApiController
+##### CinemaApiControllerIntegrationTest
+##### TicketApiControllerIntegrationTest
+##### MovieApiControllerIntegrationTest
 ### Role verification tests
-##### CinemaApiController
-##### TicketApiController
+##### CinemaApiControllerIntegrationTest
+##### TicketApiControllerIntegrationTest
 # Test coverage:
 ![Code Coverage](src/main/resources/static/images/test-coverage.png)
 ![Code Coverage](src/main/resources/static/images/movie-controller-test-coverage.png)
 ##### Movie controller on the second picture is MVC
+
+# Week 10
+## The names of the classes containing
+### Mocking tests
+##### TicketApiControllerTest
+##### TicketServiceImplTest
+### 'verify' tests
+##### TicketApiControllerTest
+##### TicketServiceImplTest
 
