@@ -1,71 +1,133 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head>
+<html
+  xmlns:th="http://www.thymeleaf.org">
+  <head>
     <meta charset="UTF-8">
     <title th:text="#{all.cinemas.title}">All Cinemas</title>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
+    <link
+      rel="stylesheet"
+      th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}"
+    />
     <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
-
-    <script src="/js/delete-element.js" type="module"></script>
+    <meta name="_csrf" th:content="${_csrf.token}" />
+    <meta name="_csrf_header" th:content="${_csrf.headerName}" />
+    <script src="/js/bundle-site.js" defer></script>
+    <link rel="stylesheet" href="/css/bundle-site.css">
+    <script src="/js/bundle-delete-element.js" defer></script>
     <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
-      <link rel="stylesheet" th:href="@{/css/style.css}" />
-</head>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+  </head>
 
-<body class="text-black d-flex flex-column min-vh-100" style="background-color: #d0e3ff;">
-<div th:insert="~{fragments :: navbar}"></div>
+  <body
+    class="text-black d-flex flex-column min-vh-100"
+    style="background-color: #d0e3ff"
+  >
+    <div th:insert="~{fragments :: navbar}"></div>
 
-<div class="container pb-5">
-    <h2 class="text-center mb-4 display-4" th:text="#{all.cinemas.title}" style = "color: #598bf8;">All Cinemas</h2>
+    <div class="container pb-5">
+      <h2
+        class="text-center mb-4 display-4"
+        th:text="#{all.cinemas.title}"
+        style="color: #598bf8"
+      >
+        All Cinemas
+      </h2>
 
-    <div class="row g-4">
-        <div th:each="cinema : ${cinemas.cinemas()}" th:id="'cinema-' + ${cinema.id}" class="col-lg-3 col-md-6 col-sm-12">
-            <div class="card text-white shadow-lg" style="max-height: 340px; background-color: #A2BFFE; border-radius: 15px;">
-                <div class="image-container">
-                    <a th:href="@{/cinemas/details/{id}(id=${cinema.id})}">
-                        <img th:src="@{/images/{image}(image=${cinema.image})}" class="card-img-top img-fluid"
-                             alt="Image of [[${cinema.name}]]" />
-                    </a>
-                </div>
-                <div class="card-body d-flex flex-column flex-grow-1">
-                    <h5 class="card-title text-center" th:text="${cinema.name}">Cinema Name</h5>
-                    <button th:if="${#authorization.expression('hasAnyRole(''ADMINISTRATOR'')')}" style = "background-color: #598bf8;" class="btn text-light fw-bold mt-2 remove-cinema-button"
-                            th:attr="data-cinema-id=${cinema.id}">
-                        Remove
-                    </button>
-                </div>
+      <div class="row g-4">
+        <div
+          th:each="cinema : ${cinemas.cinemas()}"
+          th:id="'cinema-' + ${cinema.id}"
+          class="col-lg-3 col-md-6 col-sm-12"
+        >
+          <div
+            class="card text-white shadow-lg"
+            style="max-height: 340px; background-color: #a2bffe; border-radius: 15px"
+          >
+            <div class="image-container">
+              <a th:href="@{/cinemas/details/{id}(id=${cinema.id})}">
+                <img
+                  th:src="@{/images/{image}(image=${cinema.image})}"
+                  class="card-img-top img-fluid"
+                  alt="Image of [[${cinema.name}]]"
+                />
+              </a>
             </div>
+            <div class="card-body d-flex flex-column flex-grow-1">
+              <h5 class="card-title text-center" th:text="${cinema.name}">
+                Cinema Name
+              </h5>
+              <button
+                th:if="${#authorization.expression('hasAnyRole(''ADMINISTRATOR'')')}"
+                style="background-color: #598bf8"
+                class="btn text-light fw-bold mt-2 remove-cinema-button"
+                th:attr="data-cinema-id=${cinema.id}"
+              >
+                Remove
+              </button>
+            </div>
+          </div>
         </div>
-    </div>
+      </div>
 
-    <h3 class="mt-5 text-center" th:text="#{filter.capacity}" style = "color: #598bf8;">Filter Cinemas by Capacity</h3>
+      <h3
+        class="mt-5 text-center"
+        th:text="#{filter.capacity}"
+        style="color: #598bf8"
+      >
+        Filter Cinemas by Capacity
+      </h3>
 
-    <div class="card mx-auto p-4 shadow-lg text-light" style="max-width: 400px; background-color: #A2BFFE; border-radius: 12px;">
-        <form th:action="@{/cinemas/filter}" method="post" onsubmit="return validateForm()">
-            <div class="form-group mb-3">
-                <label for="minCapacity" class="form-label fw-bold text-light" th:text="#{filter.label.minCapacity}">Minimum Capacity:</label>
-                <input type="number" id="minCapacity" name="minCapacity" class="form-control text-black bg-light"
-                       min="1" required placeholder="Enter minimum capacity" style="border-radius: 8px; padding: 10px;">
-            </div>
-            <button type="submit" class="btn text-light w-100 py-2 fw-bold" style = "background-color: #598bf8;">
-                <i class="fas fa-filter"></i> <span th:text="#{filter.button}">Filter</span>
-            </button>
+      <div
+        class="card mx-auto p-4 shadow-lg text-light"
+        style="max-width: 400px; background-color: #a2bffe; border-radius: 12px"
+      >
+        <form
+          th:action="@{/cinemas/filter}"
+          method="post"
+          onsubmit="return validateForm()"
+        >
+          <div class="form-group mb-3">
+            <label
+              for="minCapacity"
+              class="form-label fw-bold text-light"
+              th:text="#{filter.label.minCapacity}"
+            >Minimum Capacity:</label>
+            <input
+              type="number"
+              id="minCapacity"
+              name="minCapacity"
+              class="form-control text-black bg-light"
+              min="1"
+              required
+              placeholder="Enter minimum capacity"
+              style="border-radius: 8px; padding: 10px"
+            >
+          </div>
+          <button
+            type="submit"
+            class="btn text-light w-100 py-2 fw-bold"
+            style="background-color: #598bf8"
+          >
+            <i class="fas fa-filter"></i>
+            <span th:text="#{filter.button}">Filter</span>
+          </button>
         </form>
-    </div>
+      </div>
 
-    <script>
-        function validateForm() {
-            const minCapacity = document.getElementById('minCapacity').value;
-            if (minCapacity <= 0 || isNaN(minCapacity)) {
-                alert('Please enter a valid minimum capacity greater than zero.');
-                return false;
-            }
-            return true;
+      <script>
+      function validateForm() {
+          const minCapacity =
+            document.getElementById("minCapacity").value;
+          if (minCapacity <= 0 || isNaN(minCapacity)) {
+            alert(
+              "Please enter a valid minimum capacity greater than zero.",
+            );
+            return false;
+          }
+          return true;
         }
-    </script>
-</div>
-<div th:insert="~{fragments :: footer}"></div>
-<script src="/webjars/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-</body>
+      </script>
+    </div>
+    <div th:insert="~{fragments :: footer}"></div>
+  </body>
 </html>

@@ -2,7 +2,8 @@ plugins {
     java
     id("org.springframework.boot") version "3.4.2"
     id("io.spring.dependency-management") version "1.1.7"
-}
+    id("com.github.node-gradle.node") version "7.1.0"
+ }
 
 group = "be.kdg"
 version = "0.0.1-SNAPSHOT"
@@ -21,7 +22,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.webjars:bootstrap:5.3.0")
     runtimeOnly("org.postgresql:postgresql:42.7.5")
     implementation("org.projectlombok:lombok:1.18.30")
     annotationProcessor("org.projectlombok:lombok:1.18.30")
@@ -44,3 +44,8 @@ dependencies {
 tasks.withType<Test> {
     useJUnitPlatform()
 }
+
+tasks.named<Copy>("processResources") {
+    dependsOn("npm_run_build")
+}
+

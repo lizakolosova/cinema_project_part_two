@@ -25,6 +25,7 @@ public class GlobalExceptionHandler {
         model.addAttribute("timestamp", LocalDateTime.now());
         return "error/database-error";
     }
+
     @ExceptionHandler(ChangeSetPersister.NotFoundException.class)
     public Object handleNotFoundException(final HttpServletRequest request, final ChangeSetPersister.NotFoundException e) {
         if (request.getRequestURI().startsWith("/api")) {

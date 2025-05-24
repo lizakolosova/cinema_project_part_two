@@ -15,11 +15,11 @@ form.addEventListener('submit', async e => {
             role: document.querySelector('#role').value
         }),
     });
-    if (!response.ok) {  // Check if the response is not OK (status code 2xx)
-        const errorText = await response.text(); // Get the raw error message (likely HTML)
+    if (!response.ok) {
+        const errorText = await response.text();
         console.error('Error response:', errorText);
         alert(`Failed to create user: ${errorText}`);
-        return;  // Exit early to prevent parsing JSON when the response is an error
+        return;
     }
     if (response.status === 201) {
         const data = await response.json();
@@ -27,8 +27,15 @@ form.addEventListener('submit', async e => {
         alert('User created successfully!');
         form.reset();
     } else {
-        const errorData = await response.json();
-        console.error('Failed to create user:', errorData);
-        alert(`Failed to create user: ${errorData.message || 'Unknown error'}`);
+        const contentType = response.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+            const errorData = await response.json();
+            console.error('Failed to create user:', errorData);
+            alert(`Failed to create user: ${errorData.message || 'Unknown error'}`);
+        } else {
+            const errorText = await response.text();
+            console.error('Unexpected error response:', errorText);
+            alert(`Failed to create user. Server response was not JSON:\n${errorText}`);
+        }
     }
 });

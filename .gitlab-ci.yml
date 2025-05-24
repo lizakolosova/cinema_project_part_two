@@ -1,7 +1,8 @@
-image: eclipse-temurin:21-alpine
+image: timbru31/java-node:21-alpine-jdk-22
 
 before_script:
   - chmod +x ./gradlew
+#  - apt-get install node - not good thing to do
 
 build:
   stage: build

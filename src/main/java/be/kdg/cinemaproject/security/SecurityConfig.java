@@ -21,13 +21,15 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(final HttpSecurity security) throws Exception {
         return security
                 .csrf(csrf -> csrf
-                        .ignoringRequestMatchers("/api/visitors")
+                        .ignoringRequestMatchers("/api/visitors", "/api/screens")
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.GET, "/home").permitAll()
                         .requestMatchers(HttpMethod.GET, "/register").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/visitors").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/movies").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/api/screens").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/screens").permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.GET, "/cinemas"),
                                 antMatcher(HttpMethod.GET, "/movies"),
@@ -49,14 +51,17 @@ public class SecurityConfig {
                                 antMatcher("/images/**"),
                                 antMatcher("/webjars/**")).permitAll()
                         .anyRequest().authenticated())
-                .exceptionHandling(
-                        exceptionHandling -> exceptionHandling.authenticationEntryPoint((request, response, authException) -> {
+                .exceptionHandling(exceptionHandling -> exceptionHandling
+                        .authenticationEntryPoint((request, response, authException) -> {
                             if (request.getRequestURI().startsWith("/api")) {
-                                response.setStatus(HttpStatus.FORBIDDEN.value());
+                                response.setStatus(HttpStatus.UNAUTHORIZED.value());
+                                response.setContentType("application/json");
+                                response.getWriter().write("{\"error\": \"Unauthorized\"}");
                             } else {
                                 response.sendRedirect("/login");
                             }
-                        }))
+                        })
+                )
                 .formLogin(login -> login.loginPage("/login").permitAll())
                 .build();
     }
