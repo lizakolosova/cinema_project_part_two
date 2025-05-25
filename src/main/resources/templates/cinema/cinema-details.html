@@ -1,56 +1,47 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="">
 <meta charset="UTF-8">
 <head>
-    <link rel="stylesheet" th:href="@{/webjars/bootstrap/5.3.0/css/bootstrap.min.css}" />
     <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
-    <script th:src="@{/webjars/jquery/3.6.0/jquery.min.js}"></script>
     <title th:text="#{cinema.details.title}">Cinema Details</title>
     <script src="/js/bundle-site.js" defer></script>
     <link rel="stylesheet" href="/css/bundle-site.css">
 </head>
 
-<body class="text-black pb-4" style="background-color: #d0e3ff;">
+<body style="background-color: #d0e3ff;">
 <div th:insert="~{fragments :: navbar}"></div>
 
-<div class="container pb-5">
+<div class="container">
     <div th:if="${cinema != null}" class="mb-3">
         <h1 th:text="${cinema.name}" class="display-4 text-center mb-4" style="color: #598bf8;">Cinema Name</h1>
-
-        <!-- Cinema Info Card -->
+        
         <div class="card mb-4 shadow-lg border-0" style="background-color: #A2BFFE; border-radius: 15px;">
             <div class="card-body">
                 <div class="row g-4 align-items-center">
-                    <!-- Image Section -->
                     <div class="col-md-6">
                         <img th:src="@{/images/{image}(image=${cinema.image})}"
                              alt="Image of [[${cinema.name}]]"
                              class="card-img-top rounded-3 w-100"
                              style="object-fit: cover; height: 350px;" />
                     </div>
-
-                    <!-- Text Section -->
+                    
                     <div class="col-md-6 d-flex flex-column justify-content-center">
-                        <!-- Capacity -->
                         <div class="mb-3">
                             <h5 th:text="#{card.capacity}"
                                 class="fs-4 fw-bold text-white bg text-uppercase">Capacity</h5>
                             <p th:text="${cinema.capacity}"
                                class="fs-5 text-white rounded px-3 py-2 shadow-sm">1000</p>
                         </div>
-
-                        <!-- Address -->
+                        
                         <div class="mb-3">
                             <h5 th:text="#{card.address}"
                                 class="fs-4 fw-bold text-white text-uppercase">Address</h5>
                             <p th:text="${cinema.address}"
                                class="fs-5 text-white rounded px-3 py-2 shadow-sm">123 Street Name, City</p>
                         </div>
-
-                        <!-- Decorative Line -->
+                        
                         <hr style="border-top: 2px solid #ffffff; opacity: 0.8;" />
-
-                        <!-- Additional Info (Optional) -->
+                        
                         <p class="text-white fs-6 fst-italic mt-3">
                             Enjoy the best cinematic experience at [[${cinema.name}]]!
                         </p>
@@ -58,8 +49,7 @@
                 </div>
             </div>
         </div>
-
-        <!-- Screens Section -->
+        
         <h2 th:text="#{cinema.screens.title}" class="fs-3 mb-4 text-center" style="color: #598bf8;">Movies in this cinema</h2>
 
         <div class="row">

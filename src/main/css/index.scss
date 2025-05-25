@@ -1,7 +1,10 @@
+@import 'variables';
+@import 'carousel';
+
+
 body {
     background: url('../js/assets/images/cinema-bg.jpg') no-repeat center center fixed;
     background-size: cover;
-    color: #f4e8e8;
 }
 
 .hero-section {
@@ -9,3 +12,4 @@ body {
     padding: 80px 20px;
     border-radius: 15px;
 }
+

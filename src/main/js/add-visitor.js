@@ -25,7 +25,7 @@ form.addEventListener('submit', async e => {
         const data = await response.json();
         console.log('User created successfully:', data);
         alert('User created successfully!');
-        form.reset();
+        window.location.href = "/login";
     } else {
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {

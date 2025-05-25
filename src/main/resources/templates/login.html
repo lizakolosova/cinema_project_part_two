@@ -1,91 +1,80 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="">
-  <head>
-    <meta charset="UTF-8">
-    <title th:text="#{login.title}">Login</title>
-    <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
-    <script src="/js/bundle-site.js" defer></script>
-    <link rel="stylesheet" href="/css/bundle-site.css">
-  </head>
-  <body
-    class="text-black d-flex flex-column min-vh-100"
-    style="background-color: #d0e3ff"
-  >
-    <div th:replace="~{fragments :: navbar}"></div>
-
-    <div class="d-flex align-items-center justify-content-center vh-100">
-      <div
-        class="card shadow-lg border-white p-4"
-        style="max-width: 400px; width: 100%; background-color: #a2bffe; color: white; border-radius: 15px"
-      >
-        <h2 class="text-center mb-3" th:text="#{login.title}">Login</h2>
-
-        <div th:if="${param.error}" class="alert alert-danger text-center">
-          <p th:text="#{login.error}">Invalid username or password</p>
-        </div>
-
-        <form th:action="@{/login}" method="post">
-          <div class="mb-3">
-            <label for="username" class="form-label" th:text="#{login.username}"
-            >Username</label>
-            <input
-              type="text"
-              id="username"
-              name="username"
-              class="form-control text-black"
-              required
-              autofocus
-            />
-          </div>
-          <div class="mb-3">
-            <label for="password" class="form-label" th:text="#{login.password}"
-            >Password</label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              class="form-control text-black"
-              required
-            />
-          </div>
-          <div class="text-center">
-            <button
-              type="submit"
-              class="btn w-100 text-white"
-              style="background-color: #598bf8"
-              th:text="#{login.button}"
-            >
-              Login
-            </button>
-          </div>
-        </form>
-
-        <div class="text-center mt-3">
-          <p>
-            <a
-              th:href="@{/register}"
-              th:text="#{login.register}"
-              class="text-white fw-bold"
-            >Register</a>
-          </p>
-        </div>
-
-        <!-- Test User Info -->
-        <div
-          class="mt-4 p-2 text-center"
-          style="background-color: #1e293bff; border-radius: 10px"
-        >
-          <p class="fw-bold mb-1">Test Visitor User:</p>
-          <p class="mb-1 t">Username: <code>raoul@kdg.be</code></p>
-          <p>Password: <code>test</code></p>
-          <p class="fw-bold mb-1">Test Administrator User:</p>
-          <p class="mb-1 t">
-            Username: <code>liza.kolosova@student.kdg.be</code>
-          </p>
-          <p>Password: <code>test</code></p>
-        </div>
-      </div>
+<head>
+  <meta charset="UTF-8">
+  <title th:text="#{login.title}">Login</title>
+  <link rel="icon" th:href="@{/icons/icon.jpg}" type="image/jpg">
+  <script src="/js/bundle-site.js" defer></script>
+  <link rel="stylesheet" href="/css/bundle-site.css">
+  <script src="/js/bundle-login.js" defer></script>
+</head>
+<body class="d-flex flex-column min-vh-100" style="background-color: #d0e3ff">
+<div th:replace="~{fragments :: navbar}"></div>
+<div class="main-content d-flex align-items-center justify-content-center flex-grow-1">
+  <div class="card shadow-lg p-4"
+       style="max-width: 400px; width: 100%; background-color: #a2bffe; color: white; border-radius: 15px">
+    <h2 class="text-center mb-3" th:text="#{login.title}">Login</h2>
+    <div th:if="${param.error}" class="alert alert-danger text-center">
+      <p th:text="#{login.error}">Invalid username or password</p>
     </div>
-    <div th:replace="~{fragments :: footer}"></div>
-  </body>
+    <form th:action="@{/login}" method="post">
+      <div class="mb-3">
+        <label for="username" class="form-label" th:text="#{login.username}"
+        >Username</label>
+        <input
+                type="text"
+                id="username"
+                name="username"
+                class="form-control text-black"
+        />
+      </div>
+      <div class="mb-3">
+        <label for="password" class="form-label" th:text="#{login.password}"
+        >Password</label>
+        <input
+                type="password"
+                id="password"
+                name="password"
+                class="form-control text-black"
+        />
+      </div>
+      <div class="text-center">
+        <button
+                type="submit"
+                class="btn w-100 text-white"
+                style="background-color: #598bf8"
+                th:text="#{login.button}"
+        >
+          Login
+        </button>
+      </div>
+    </form>
+
+    <div class="text-center mt-3">
+      <p>
+        <a
+                th:href="@{/register}"
+                th:text="#{login.register}"
+                class="text-white fw-bold"
+        >Register</a>
+      </p>
+    </div>
+
+    <div
+            class="mt-4 p-2 text-center"
+            style="background-color: #1e293bff; border-radius: 10px"
+    >
+      <p class="fw-bold mb-1">Test Visitor User:</p>
+      <p class="mb-1 t">Username: <code>raoul@kdg.be</code></p>
+      <p>Password: <code>test</code></p>
+      <p class="fw-bold mb-1">Test Administrator User:</p>
+      <p class="mb-1 t">
+        Username: <code>liza.kolosova@student.kdg.be</code>
+      </p>
+      <p>Password: <code>test</code></p>
+    </div>
+  </div>
+</div>
+<div th:replace="~{fragments :: footer}"></div>
+</body>
 </html>

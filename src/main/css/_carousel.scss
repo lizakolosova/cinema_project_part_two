@@ -1,0 +1,19 @@
+#cinemaFactsCarousel {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 2rem;
+
+  h3 {
+    font-size: 1.75rem;
+    color: $primary;
+  }
+
+  p {
+    font-size: 1.1rem;
+    color: lighten($primary, 30%);
+  }
+
+  .carousel-control-prev-icon,
+  .carousel-control-next-icon {
+    filter: invert(1);
+  }
+}
