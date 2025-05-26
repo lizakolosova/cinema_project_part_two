@@ -9,9 +9,9 @@
 ###### Build and Run Instructions:
 ###### You need Java 17+ and Gradle.
 ###### To build the project with gradle: ./gradlew clean build
-###### To run the project with gradle: ./gradlew run
+###### To run the project with gradle: ./gradlew bootRun
 ###### To run the test with gradle: ./gradlew test
-###### To run the test with gradle and profile test on Windows: ./gradlew test "-Dspring.profiles.active=test"( ./gradlew test -Dspring.profiles.active=test)
+###### To run the test with gradle and profile test on Windows: ./gradlew test "-Dspring.profiles.active=test"( ./gradlew test -Dspring.profiles.active=test )
 ###### I assume you can run the test without quotes("") but for Windows (or just me) it didn't work.
 ###### Additional info: use can access my page from http://localhost:8080/ only and then you will navigate through navbar.
 
@@ -271,7 +271,7 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ## A page that can be accessed by anyone:
 [Cinemas page](http://localhost:8080/cinemas)
 ## A hyperlink to a page that requires authentication to be accessible:
-[Add Cinema page](http://localhost:8080/cinemas/addcinema)
+[Add Ticket page](http://localhost:8080/tickets/add)
 
 # Week 5
 ## Users are the same.
@@ -316,4 +316,35 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ##### TicketServiceImplTest
 
 # [Markdown hyperlink to a test report of a recent successful pipeline.](https://gitlab.com/kdg-ti/programming-5/projects-24-25/acs201/liza.kolosova/spring-backend/-/jobs/9995803903)
+
+# Week 12
+## Bootstrap icons:
+##### -  bi-camera-reels-fill, bi-building, bi-film, bi-ticket-perforated, bi-plus-circle-dotted, bi-plus-circle, bi-plus-circle-fill, bi-plus-square,  bi-search, bi-box-arrow-in-right
+##### the URL(actually it's in navbar so you can see it on every page): 
+##### [Cinemas page](http://localhost:8080/cinemas)
+##### and the source file is fragments.html
+
+## Custom client-side validation:
+##### the url where I implemented it: [Login](http://localhost:8080/login) and [Add ticket](http://localhost:8080/tickets/add)
+##### the source file where I implemented it: login-validation.js and add-ticket-validation.js
+
+##  JavaScript dependencies:
+### I added sweetalert2 and animejs
+
+### Where you can find them: 
+##### sweetalert2 - patch-ticket.js (line 8, then 34), delete-element.js.(line 18, then 60)
+##### animejs - delete-element.js (line 50-63)
+
+### Sweetalert2 steps:
+##### 1. Log in (doesn't matter as who)
+##### 2. [Click on this link](http://localhost:8080/tickets/details/2)
+##### 3. Click edit ticket 
+##### 4. Set price
+##### 5. Save
+
+### Sweetalert2+Animejs steps (they are both involved in it):
+##### 1. go to all tickets page through navbar
+##### 2. Click "delete"
+
+
 

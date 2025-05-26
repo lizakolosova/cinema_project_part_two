@@ -44,7 +44,7 @@
             </li>
             <li class="nav-item" th:if="${#authorization.expression('hasAnyRole(''ADMINISTRATOR'')')}">
               <a class="nav-link link-custom" th:href="@{/cinemas/addcinema}">
-                <i class="bi bi-plus-circle me-1"></i> Add Cinema
+                <i class="bi bi-plus-circle-dotted me-1"></i> Add Cinema
               </a>
             </li>
             <li class="nav-item" th:if="${#authorization.expression('hasAnyRole(''ADMINISTRATOR'')')}">
@@ -54,7 +54,7 @@
             </li>
             <li class="nav-item">
               <a class="nav-link link-custom" th:href="@{/tickets/add}">
-                <i class="bi bi-plus-square me-1"></i> Add Ticket
+                <i class="bi bi-plus-circle-fill me-1"></i> Add Ticket
               </a>
             </li>
             <li class="nav-item">
