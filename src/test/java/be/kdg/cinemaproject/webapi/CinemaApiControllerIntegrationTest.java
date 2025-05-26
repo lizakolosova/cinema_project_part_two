@@ -5,6 +5,8 @@ import be.kdg.cinemaproject.domain.Cinema;
 import be.kdg.cinemaproject.domain.Movie;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDateTime;
+import java.util.stream.Stream;
 
 import static be.kdg.cinemaproject.TestHelper.VISITOR_EMAIL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -81,27 +84,67 @@ class CinemaApiControllerIntegrationTest {
         assertEquals(1, (long) testHelper.findTickets().size());
     }
 
-    @Test
-    @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void ShouldNotAddTicketWithoutPrice() throws Exception {
+    private static String buildTicketJson(String showtime, Integer price, String format, String image, String availability, Long movieId, Long cinemaId
+    ) {
+        StringBuilder sb = new StringBuilder("{");
+        boolean first = true;
+        if (showtime != null) {
+            sb.append(String.format("%s\"showtime\": \"%s\"", "", showtime));
+            first = false;
+        }
+        if (price != null) {
+            sb.append(String.format("%s\"price\": %d", first ? "" : ", ", price));
+            first = false;
+        }
+        if (format != null) {
+            sb.append(String.format("%s\"format\": \"%s\"", first ? "" : ", ", format));
+            first = false;
+        }
+        if (image != null) {
+            sb.append(String.format("%s\"image\": \"%s\"", first ? "" : ", ", image));
+            first = false;
+        }
+        if (availability != null) {
+            sb.append(String.format("%s\"availability\": \"%s\"", first ? "" : ", ", availability));
+            first = false;
+        }
+        if (movieId != null) {
+            sb.append(String.format("%s\"movieId\": %d", first ? "" : ", ", movieId));
+            first = false;
+        }
+        if (cinemaId != null) {
+            sb.append(String.format("%s\"cinemaId\": %d", first ? "" : ", ", cinemaId));
+        }
+        sb.append("}");
+        return sb.toString();
+    }
 
-        //Arrange
-        Movie movie = testHelper.createMovie();
+
+    static Stream<String> invalidTicketPayloads() {
+        long movieId = 1L;
+        long cinemaId = 1L;
+        String time = LocalDateTime.now().plusDays(1).toString();
+
+        return Stream.of(
+                buildTicketJson(time, null, "3D", "image.jpg", "AVAILABLE", movieId, cinemaId),
+                buildTicketJson(null, 11, "3D", "image.jpg", "AVAILABLE", movieId, cinemaId),
+                buildTicketJson(time, 11, null, "image.jpg", "AVAILABLE", movieId, cinemaId),
+                buildTicketJson(time, 11, "3D", null, "AVAILABLE", movieId, cinemaId)
+        );
+    }
+
+    @ParameterizedTest
+    @MethodSource("invalidTicketPayloads")
+    @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void shouldNotAddTicketIfMissingAnyField(String payload) throws Exception {
+        // Arrange
         Cinema cinema = testHelper.createCinema();
-        LocalDateTime time = LocalDateTime.now().plusDays(1);
+
         final var request = post("/api/cinemas/" + cinema.getId() + "/tickets")
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .content(String.format("""
-                {
-                 "showtime": "%s",
-                 "format": "3D",
-                 "image": "image.jpg",
-                 "availability": "AVAILABLE",
-                 "movieId": %d,
-                 "cinemaId": %d
-                 }""", time, movie.getId(), cinema.getId()));
+                .content(payload);
 
         // Act
         final var response = mockMvc.perform(request);
