@@ -55,11 +55,6 @@ public class Cinema {
         this.tickets = new ArrayList<>();
     }
 
-
-    public void addScreens(CinemaScreen screen) {
-        this.screens.add(screen);
-    }
-
     @Override
     public String toString() {
         return "Cinema: " + name + ", Address: " + address + ", Capacity: " + capacity;
