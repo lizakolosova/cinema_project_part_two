@@ -329,13 +329,12 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ##### the source file where I implemented it: login-validation.js and add-ticket-validation.js
 
 ##  JavaScript dependencies:
-### I added sweetalert2, animejs and confetti. Also validator
+### I added sweetalert2, animejs and confetti.
 
 ### Where you can find them: 
 ##### sweetalert2 - patch-ticket.js (line 8, then 34), delete-element.js.(line 18, then 60), add-visitor.js, add-ticket.js
 ##### animejs - delete-element.js (line 50-63)
 ##### confetti - confetti.js
-##### validator - login-validation.js, add-ticket-validation.js
 
 ### Sweetalert2+confetti steps:
 ##### 1. Log in (doesn't matter as who)
