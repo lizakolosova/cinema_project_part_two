@@ -1,5 +1,7 @@
 import { validateAddTicketForm } from './add-ticket-validation.js';
 import { csrfToken, csrfHeaderName } from "./util/csrf.js";
+import { doConfetti } from './confetti.js';
+import Swal from 'sweetalert2';
 
 const form = document.querySelector('#add-ticket-form');
 const errorMessage = document.getElementById('errorMessage');
@@ -53,8 +55,20 @@ form.addEventListener('submit', async e => {
 
     if (response.status === 201) {
         const ticket = await response.json();
-        alert(`The ticket got created with ID ${ticket.id}!`);
+        doConfetti();
+        await Swal.fire({
+            title: 'Success!',
+            text: `The ticket was created with ID ${ticket.id}`,
+            icon: 'success',
+            confirmButtonColor: '#598bf8'
+        });
+        form.reset();
     } else {
-        alert('Something went wrong while creating the ticket');
+        await Swal.fire({
+            title: 'Oops!',
+            text: 'Something went wrong while creating the ticket.',
+            icon: 'error',
+            confirmButtonColor: '#598bf8'
+        });
     }
 });

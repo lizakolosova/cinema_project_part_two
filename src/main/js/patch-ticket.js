@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import {csrfToken, csrfHeaderName} from "./util/csrf.js";
+import { doConfetti } from './confetti.js';
 
 const form = document.querySelector('#patch-ticket-modal');
 form.addEventListener('submit', async e => {
@@ -31,6 +32,7 @@ form.addEventListener('submit', async e => {
             });
 
             if (response.status === 204) {
+                doConfetti();
                 Swal.fire('Updated!', `The ticket with ID ${ticketId} was successfully updated!`, 'success')
                     .then(() => window.location.reload());
             } else {

@@ -332,10 +332,11 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ### I added sweetalert2 and animejs
 
 ### Where you can find them: 
-##### sweetalert2 - patch-ticket.js (line 8, then 34), delete-element.js.(line 18, then 60)
+##### sweetalert2 - patch-ticket.js (line 8, then 34), delete-element.js.(line 18, then 60), add-visitor.js, add-ticket.js
 ##### animejs - delete-element.js (line 50-63)
+##### confetti - confetti.js
 
-### Sweetalert2 steps:
+### Sweetalert2+confetti steps:
 ##### 1. Log in (doesn't matter as who)
 ##### 2. [Click on this link](http://localhost:8080/tickets/details/2)
 ##### 3. Click edit ticket 
@@ -343,8 +344,9 @@ Response code: 404; Time: 17ms (17 ms); Content length: 103 bytes (103 B)
 ##### 5. Save
 
 ### Sweetalert2+Animejs steps (they are both involved in it):
-##### 1. go to all tickets page through navbar
-##### 2. Click "delete"
+##### 1. Log in (doesn't matter as who)
+##### 2. go to all tickets page through navbar
+##### 3. Click "delete"
 
 
 

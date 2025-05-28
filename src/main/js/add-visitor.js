@@ -1,3 +1,5 @@
+import { Toast } from './toast.js';
+import { doConfetti } from './confetti.js';
 const form = document.querySelector('#add-visitor-form');
 form.addEventListener('submit', async e => {
     e.preventDefault();
@@ -18,24 +20,44 @@ form.addEventListener('submit', async e => {
     if (!response.ok) {
         const errorText = await response.text();
         console.error('Error response:', errorText);
-        alert(`Failed to create user: ${errorText}`);
+
+        await Toast.fire({
+            icon: 'error',
+            title: `Failed to create user: ${errorText}`
+        });
         return;
     }
+
     if (response.status === 201) {
         const data = await response.json();
         console.log('User created successfully:', data);
-        alert('User created successfully!');
-        window.location.href = "/login";
+        doConfetti();
+        await Toast.fire({
+            icon: 'success',
+            title: 'Visitor account created!'
+        });
+
+        setTimeout(() => {
+            window.location.href = "/login";
+        }, 2000);
     } else {
         const contentType = response.headers.get("content-type");
         if (contentType && contentType.includes("application/json")) {
             const errorData = await response.json();
             console.error('Failed to create user:', errorData);
-            alert(`Failed to create user: ${errorData.message || 'Unknown error'}`);
+
+            await Toast.fire({
+                icon: 'error',
+                title: `Failed: ${errorData.message || 'Unknown error'}`
+            });
         } else {
             const errorText = await response.text();
             console.error('Unexpected error response:', errorText);
-            alert(`Failed to create user. Server response was not JSON:\n${errorText}`);
+
+            await Toast.fire({
+                icon: 'error',
+                title: 'Server error: response was not JSON'
+            });
         }
     }
 });
