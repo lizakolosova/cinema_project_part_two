@@ -188,4 +188,27 @@ class TicketApiControllerIntegrationTest {
         response.andDo(print())
                 .andExpect(status().isUnauthorized());
     }
+    @Test
+    @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void shouldNotPatchTicketWithTooHighPrice() throws Exception {
+
+        // Arrange
+        Long ticketId = testHelper.createTicket().getId();
+        final var request =patch("/api/tickets/{id}", ticketId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content("""
+                {
+                 "price": 16,
+                 "availability": "AVAILABLE"
+                 }""");
+
+        // Act
+        final var response = mockMvc.perform(request);
+
+        // Assert
+        response.andDo(print())
+                .andExpect(status().isBadRequest());
+    }
 }
