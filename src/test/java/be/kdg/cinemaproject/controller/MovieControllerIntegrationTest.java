@@ -41,129 +41,129 @@ class MovieControllerIntegrationTest {
         testHelper.createVisitor();
     }
 
-    @Test
-    @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldAddMovie() throws Exception {
-        // Arrange
-        final var request = post("/movies/addmovie")
-                .with(csrf())
-                .param("title", "Movie")
-                .param("rating", "8")
-                .param("genre", "ACTION")
-                .param("releaseDate", "2025-11-02")
-                .param("image", "image.jpg");
+        @Test
+        @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+        void shouldAddMovie() throws Exception {
+            // Arrange
+            final var request = post("/movies/addmovie")
+                    .with(csrf())
+                    .param("title", "Movie")
+                    .param("rating", "8")
+                    .param("genre", "ACTION")
+                    .param("releaseDate", "2025-11-02")
+                    .param("image", "image.jpg");
 
-        // Act
-        final var response = mockMvc.perform(request);
+            // Act
+            final var response = mockMvc.perform(request);
 
-        // Assert
-        response.andExpect(status().isFound())
-                .andExpect(view().name("redirect:/movies"));
-    }
+            // Assert
+            response.andExpect(status().isFound())
+                    .andExpect(view().name("redirect:/movies"));
+        }
 
-    @Test
-    @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldNotAddMovieWithoutTitle() throws Exception {
-        // Arrange
-        final var request = post("/movies/addmovie")
-                .with(csrf())
-                .param("rating", "8")
-                .param("genre", "ACTION")
-                .param("releaseDate", "2025-11-02")
-                .param("image", "image.jpg");
+        @Test
+        @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+        void shouldNotAddMovieWithoutTitle() throws Exception {
+            // Arrange
+            final var request = post("/movies/addmovie")
+                    .with(csrf())
+                    .param("rating", "8")
+                    .param("genre", "ACTION")
+                    .param("releaseDate", "2025-11-02")
+                    .param("image", "image.jpg");
 
-        // Act
-        final var response = mockMvc.perform(request);
+            // Act
+            final var response = mockMvc.perform(request);
 
-        // Assert
-        response.andExpect(status().isOk())
-                .andExpect(view().name("movie/addmovie"));
-    }
+            // Assert
+            response.andExpect(status().isOk())
+                    .andExpect(view().name("movie/addmovie"));
+        }
 
-    @Test
-    @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldNotAddMovieWithInvalidRating() throws Exception {
-        // Arrange
-        final var request = post("/movies/addmovie")
-                .with(csrf())
-                .param("title", "Movie")
-                .param("rating", "15")
-                .param("genre", "ACTION")
-                .param("releaseDate", "2025-11-02")
-                .param("image", "image.jpg");
+        @Test
+        @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+        void shouldNotAddMovieWithInvalidRating() throws Exception {
+            // Arrange
+            final var request = post("/movies/addmovie")
+                    .with(csrf())
+                    .param("title", "Movie")
+                    .param("rating", "15")
+                    .param("genre", "ACTION")
+                    .param("releaseDate", "2025-11-02")
+                    .param("image", "image.jpg");
 
-        // Act
-        final var response = mockMvc.perform(request);
+            // Act
+            final var response = mockMvc.perform(request);
 
-        // Assert
-        response.andExpect(status().isOk())
-                .andExpect(view().name("movie/addmovie"));
-    }
+            // Assert
+            response.andExpect(status().isOk())
+                    .andExpect(view().name("movie/addmovie"));
+        }
 
-    @Test
-    @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldNotAddMovieWithInvalidGenre() throws Exception {
-        // Arrange
-        final var request = post("/movies/addmovie")
-                .with(csrf())
-                .param("title", "Movie")
-                .param("rating", "8")
-                .param("genre", "gibberish")
-                .param("releaseDate", "2024-11-02")
-                .param("image", "image.jpg");
+        @Test
+        @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+        void shouldNotAddMovieWithInvalidGenre() throws Exception {
+            // Arrange
+            final var request = post("/movies/addmovie")
+                    .with(csrf())
+                    .param("title", "Movie")
+                    .param("rating", "8")
+                    .param("genre", "gibberish")
+                    .param("releaseDate", "2024-11-02")
+                    .param("image", "image.jpg");
 
-        // Act
-        final var response = mockMvc.perform(request);
+            // Act
+            final var response = mockMvc.perform(request);
 
-        // Assert
-        response.andExpect(status().isOk())
-                .andExpect(view().name("movie/addmovie"));
-    }
+            // Assert
+            response.andExpect(status().isOk())
+                    .andExpect(view().name("movie/addmovie"));
+        }
 
 
-    @Test
-    @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldNotAddMovieAsVisitor() throws Exception {
-        // Arrange
-        final var request = post("/movies/addmovie")
-                .with(csrf())
-                .param("title", "Movie")
-                .param("rating", "8")
-                .param("genre", "ACTION")
-                .param("releaseDate", "2025-11-02")
-                .param("image", "image.jpg");
+        @Test
+        @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+        void shouldNotAddMovieAsVisitor() throws Exception {
+            // Arrange
+            final var request = post("/movies/addmovie")
+                    .with(csrf())
+                    .param("title", "Movie")
+                    .param("rating", "8")
+                    .param("genre", "ACTION")
+                    .param("releaseDate", "2025-11-02")
+                    .param("image", "image.jpg");
 
-        // Act
-        final var response = mockMvc.perform(request);
+            // Act
+            final var response = mockMvc.perform(request);
 
-        // Assert
-        response.andDo(print())
-                .andExpect(status().isForbidden());
-    }
+            // Assert
+            response.andDo(print())
+                    .andExpect(status().isForbidden());
+        }
 
-    @Test
-    @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldFilterMovies() throws Exception {
-        // Arrange
-        testHelper.createMovieWithTitleAndRating("Good title", 9);
-        testHelper.createMovieWithTitleAndRating("Bad title",8);
+        @Test
+        @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+        void shouldFilterMovies() throws Exception {
+            // Arrange
+            testHelper.createMovieWithTitleAndRating("Good title", 9);
+            testHelper.createMovieWithTitleAndRating("Bad title",8);
 
-        final var request = post("/movies/filter")
-                .with(csrf())
-                .param("title", "title")
-                .param("rating", "9");
+            final var request = post("/movies/filter")
+                    .with(csrf())
+                    .param("title", "title")
+                    .param("rating", "9");
 
-        // Act
-        final var response = mockMvc.perform(request);
+            // Act
+            final var response = mockMvc.perform(request);
 
-        // Assert
-        final var model = Objects.requireNonNull(response.andDo(print())
-                        .andExpect(view().name("movie/movies"))
-                        .andExpect(model().attribute("movies", instanceOf(MoviesViewModel.class)))
-                        .andReturn()
-                        .getModelAndView())
-                .getModel();
-        final var movies = (MoviesViewModel) model.get("movies");
-        assertEquals(1, movies.movies().size());
-    }
+            // Assert
+            final var model = Objects.requireNonNull(response.andDo(print())
+                            .andExpect(view().name("movie/movies"))
+                            .andExpect(model().attribute("movies", instanceOf(MoviesViewModel.class)))
+                            .andReturn()
+                            .getModelAndView())
+                    .getModel();
+            final var movies = (MoviesViewModel) model.get("movies");
+            assertEquals(1, movies.movies().size());
+        }
 }

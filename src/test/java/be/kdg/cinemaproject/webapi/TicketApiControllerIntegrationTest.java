@@ -12,6 +12,7 @@ import org.springframework.security.test.context.support.TestExecutionEvent;
 import org.springframework.security.test.context.support.WithUserDetails;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import static be.kdg.cinemaproject.TestHelper.ADMIN_EMAIL;
 import static be.kdg.cinemaproject.TestHelper.VISITOR_EMAIL;
@@ -42,94 +43,111 @@ class TicketApiControllerIntegrationTest {
 
     @Test
     @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldDeleteTicket() throws Exception {
-
-        // Arrange
+    void shouldDeleteTicketAsVisitor() throws Exception {
         Long ticketId = testHelper.addTicketToVisitor(VISITOR_EMAIL).getId();
-        final var request = delete("/api/tickets/{id}", ticketId)
-                .with(csrf());
 
-        // Act
-        final var response = mockMvc.perform(request);
+        performDeleteTicket(ticketId).andExpect(status().isNoContent());
+        assertEquals(0, testHelper.findTickets().size());
+    }
 
-        // Assert
-        response.andExpect(status().isNoContent());
-        assertEquals(0, (long) testHelper.findTickets().size());
+    @Test
+    @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void shouldDeleteTicketAsAdmin() throws Exception {
+        Long ticketId = testHelper.addTicketToVisitor(VISITOR_EMAIL).getId();
+
+        performDeleteTicket(ticketId).andExpect(status().isNoContent());
+        assertEquals(0, testHelper.findTickets().size());
     }
 
     @Test
     @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void shouldNotDeleteNotExistingTicket() throws Exception {
-
         // Arrange
         Long ticketId = 9L;
-        final var request = delete("/api/tickets/{id}", ticketId)
-                .with(csrf());
 
         // Act
-        final var response = mockMvc.perform(request);
+        var response = performDeleteTicket(ticketId);
 
         // Assert
         response.andExpect(status().isNotFound());
-        assertEquals(0, (long) testHelper.findTickets().size());
+        assertEquals(0, testHelper.findTickets().size());
     }
 
     @Test
     @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void shouldNotDeleteTicketAsNotAssignedVisitor() throws Exception {
-
         // Arrange
         Ticket ticket = testHelper.createTicket();
         Long ticketId = ticket.getId();
-        final var request = delete("/api/tickets/{id}", ticketId)
-                .with(csrf());
 
         // Act
-        final var response = mockMvc.perform(request);
+        var response = performDeleteTicket(ticketId);
 
         // Assert
         response.andExpect(status().isForbidden());
-        assertEquals(1, (long) testHelper.findTickets().size());
-
+        assertEquals(1, testHelper.findTickets().size());
     }
 
-
     @Test
-    @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldPatchTicketAsAdmin() throws Exception {
-
+    void shouldNotDeleteTicketAsAnonymous() throws Exception {
         // Arrange
-        Long ticketId = testHelper.createTicket().getId();
-        final var request =patch("/api/tickets/{id}", ticketId)
-                .with(csrf())
-                .contentType(MediaType.APPLICATION_JSON)
-                .accept(MediaType.APPLICATION_JSON)
-                .content("""
-                {
-                 "price": 11,
-                 "availability": "AVAILABLE"
-                 }""");
+        Ticket ticket = testHelper.createTicket();
+        Long ticketId = ticket.getId();
 
         // Act
-        final var response = mockMvc.perform(request);
+        var response = performDeleteTicket(ticketId);
 
         // Assert
-        response.andDo(print())
-                .andExpect(status().isNoContent())
-                .andExpect(jsonPath("$.price").value(11))
-                .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.availability").value("AVAILABLE"))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+        response.andExpect(status().isUnauthorized());
+        assertEquals(1, (long) testHelper.findTickets().size());
+    }
+
+    private ResultActions performDeleteTicket(Long ticketId) throws Exception {
+        final var request = delete("/api/tickets/{id}", ticketId)
+                .with(csrf());
+        return mockMvc.perform(request);
     }
 
     @Test
     @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
     void shouldPatchTicketAsVisitor() throws Exception {
+        performPatchTicket(VISITOR_EMAIL);
+    }
+
+    @Test
+    @WithUserDetails(value = ADMIN_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void shouldPatchTicketAsAdmin() throws Exception {
+        performPatchTicket(ADMIN_EMAIL);
+    }
+
+    private void performPatchTicket(String userEmail) throws Exception {
+        Long ticketId = testHelper.addTicketToVisitor(userEmail).getId();
+
+        final var request = patch("/api/tickets/{id}", ticketId)
+                .with(csrf())
+                .contentType(MediaType.APPLICATION_JSON)
+                .accept(MediaType.APPLICATION_JSON)
+                .content("""
+                {
+                 "price": 11,
+                 "availability": "AVAILABLE"
+                 }""");
+
+        mockMvc.perform(request)
+                .andDo(print())
+                .andExpect(status().isNoContent())
+                .andExpect(jsonPath("$.price").value(11))
+                .andExpect(jsonPath("$.id").isNotEmpty())
+                .andExpect(jsonPath("$.availability").value("AVAILABLE"));
+    }
+
+
+    @Test
+    @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
+    void shouldNotPatchTicketAsNotAssignedVisitor() throws Exception {
 
         // Arrange
-        Long ticketId = testHelper.addTicketToVisitor(VISITOR_EMAIL).getId();
+        Long ticketId = testHelper.createTicket().getId();
         final var request =patch("/api/tickets/{id}", ticketId)
                 .with(csrf())
                 .contentType(MediaType.APPLICATION_JSON)
@@ -145,18 +163,11 @@ class TicketApiControllerIntegrationTest {
 
         // Assert
         response.andDo(print())
-                .andExpect(status().isNoContent())
-                .andExpect(jsonPath("$.price").value(11))
-                .andExpect(jsonPath("$.id").isNotEmpty())
-                .andExpect(jsonPath("$.availability").value("AVAILABLE"))
-                .andReturn()
-                .getResponse()
-                .getContentAsString();
+                .andExpect(status().isForbidden());
     }
 
     @Test
-    @WithUserDetails(value = VISITOR_EMAIL, setupBefore = TestExecutionEvent.TEST_EXECUTION)
-    void shouldNotPatchTicketAsNotRelatedVisitor() throws Exception {
+    void shouldNotPatchTicketAsAnonymous() throws Exception {
 
         // Arrange
         Long ticketId = testHelper.createTicket().getId();
@@ -166,7 +177,7 @@ class TicketApiControllerIntegrationTest {
                 .accept(MediaType.APPLICATION_JSON)
                 .content("""
                 {
-                 "price": 16,
+                 "price": 11,
                  "availability": "AVAILABLE"
                  }""");
 
@@ -175,6 +186,6 @@ class TicketApiControllerIntegrationTest {
 
         // Assert
         response.andDo(print())
-                .andExpect(status().isBadRequest());
+                .andExpect(status().isUnauthorized());
     }
 }

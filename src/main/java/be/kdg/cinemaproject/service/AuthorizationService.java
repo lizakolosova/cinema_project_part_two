@@ -20,6 +20,7 @@ public class AuthorizationService {
     }
 
     public boolean canModifyTicket(final CustomUserDetails user, final Long ticketId) {
+        log.debug(">>> canModifyTicket called with user class: {}", user.getClass());
         return canModifyTicket(
                 user,
                 ticketRepository.findById(ticketId).orElseThrow(() -> new TicketNotFoundException("Ticket not found"))

@@ -30,6 +30,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/movies").permitAll()
                         .requestMatchers(HttpMethod.GET, "/api/screens").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/screens").permitAll()
+                        .requestMatchers(HttpMethod.OPTIONS, "/api/screens").permitAll()
                         .requestMatchers(
                                 antMatcher(HttpMethod.GET, "/cinemas"),
                                 antMatcher(HttpMethod.GET, "/movies"),

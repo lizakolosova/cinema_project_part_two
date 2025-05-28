@@ -38,7 +38,7 @@ class MovieApiControllerIntegrationTest {
         testHelper.createMovieWithTitleAndRating("Good title", 9);
         testHelper.createMovieWithTitleAndRating("Bad title", 8);
 
-        final var request = get("/api/movies?title=title")
+        final var request = get("/api/movies?title=tItLe")
                 .with(csrf());
 
         final var response = mockMvc.perform(request);
